@@ -22,4 +22,8 @@ Configured:
 
 Created initial SurfSpot repository and connected local development environment.
 
-Created initial Spring Boot backend application, that runs successfully in the terminal.
+Created initial Spring Boot backend application, that runs successfully in the terminal, and is available at localhost:8080.
+
+Created my first 2 controllers, just test ones, a basic rest controller, and one that takes parameters.
+
+Used Bruno to send my first requests without having to actually use the front end.
