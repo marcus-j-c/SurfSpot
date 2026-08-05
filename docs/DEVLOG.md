@@ -22,5 +22,4 @@ Configured:
 
 Created initial SurfSpot repository and connected local development environment.
 
-Next objective:
-Create and configure the Spring Boot backend application.
+Created initial Spring Boot backend application, that runs successfully in the terminal.
