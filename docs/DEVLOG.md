@@ -37,3 +37,5 @@ Then discovered Java Record Response which takes way less code and works the sam
 Removed Beach class to instead use BeachInfo class that uses Java Record Response as it is sooooo much better!
 
 Set up my React Vite TypeScript frontend!
+
+First TypeScript written and tested my first HTML tags in app.tsx, first colours also added using app.css.
