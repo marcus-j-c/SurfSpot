@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{baseURL}}/beach/BanzaiPipeline"
+  url: "{{baseURL}}/beach/banzai-pipeline"
   auth: inherit
 
 settings:

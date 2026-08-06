@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{baseURL}}/beach/BellsBeach"
+  url: "{{baseURL}}/beach/bells-beach"
   auth: inherit
 
 settings:
