@@ -27,3 +27,7 @@ Created initial Spring Boot backend application, that runs successfully in the t
 Created my first 2 controllers, just test ones, a basic rest controller, and one that takes parameters.
 
 Used Bruno to send my first requests without having to actually use the front end.
+
+## Day 2
+
+Created my first JSON returning controllers, and used @RequestMapping for the first time.
