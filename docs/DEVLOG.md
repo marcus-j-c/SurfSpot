@@ -31,3 +31,5 @@ Used Bruno to send my first requests without having to actually use the front en
 ## Day 2
 
 Created my first JSON returning controllers, and used @RequestMapping for the first time.
+
+Then discovered Java Record Response which takes way less code and works the same!!
