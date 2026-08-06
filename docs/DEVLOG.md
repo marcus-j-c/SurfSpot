@@ -35,3 +35,5 @@ Created my first JSON returning controllers, and used @RequestMapping for the fi
 Then discovered Java Record Response which takes way less code and works the same!!
 
 Removed Beach class to instead use BeachInfo class that uses Java Record Response as it is sooooo much better!
+
+Set up my React Vite TypeScript frontend!
