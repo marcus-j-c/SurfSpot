@@ -20,8 +20,8 @@ public class BeachController {
     }
 
     @GetMapping("/JeffreysBay")
-    public Beach getJeffreysBay() {
-        Beach jefferysBay = new Beach("Jeffreys Bay", 24);
-        return jefferysBay;
+    public BeachInfo getJeffreysBay() {
+        BeachInfo jeffreysBay = new BeachInfo("Jeffreys Bay", 24);
+        return jeffreysBay;
     }
 }
