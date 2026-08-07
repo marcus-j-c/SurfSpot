@@ -45,3 +45,5 @@ First TypeScript written and tested my first HTML tags in app.tsx, first colours
 First react components created and used, along with deeper understanding of app.css and html stuff gained!
 
 Created my first props in the forecast card component!
+
+Used useState for the first time along with onChange and onClick to make a text entry box that when you click the button next to it, send an alert that says what you typed into the box!
