@@ -39,3 +39,9 @@ Removed Beach class to instead use BeachInfo class that uses Java Record Respons
 Set up my React Vite TypeScript frontend!
 
 First TypeScript written and tested my first HTML tags in app.tsx, first colours also added using app.css.
+
+## Day 3
+
+First react components created and used, along with deeper understanding of app.css and html stuff gained!
+
+Created my first props in the forecast card component!
