@@ -1,14 +1,15 @@
-import './App.css';
+import "./App.css";
+import {ForecastCard} from './components/ForecastCard';
+import {SearchBar} from './components/SearchBar';
 
 function App() {
   return (
     <>
     <div className = "welcome">
       <h1>Hello Surfspot!</h1>
-      <p>Welcome to Surfspot!</p>
+      <ForecastCard/>
+      <SearchBar/>
     </div>
-    <button>Click me</button>
-    <input type = "text" style = {{width: "400px"}} placeholder = "Test text entry box, enter whatever you want!!"/>
     </>
   );
 }
