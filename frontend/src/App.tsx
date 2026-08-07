@@ -1,8 +1,13 @@
+import { useState } from "react";
 import "./App.css";
 import {ForecastCard} from './components/ForecastCard';
 import {SearchBar} from './components/SearchBar';
 
 function App() {
+  const [selectedBeach, setSelectedBeach] = useState("");
+  const handleSearch = (beachName: string) => {
+    setSelectedBeach(beachName);
+  }
   return (
     <>
     <div className = "welcome">
@@ -25,7 +30,8 @@ function App() {
         windDirection = "SW"
         airTemp = {19.0}
         />
-      <SearchBar/>
+      <SearchBar onSearch = {handleSearch}/> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
+      <p>Currently showing forecast for: {selectedBeach}</p>
     </div>
     </>
   );
