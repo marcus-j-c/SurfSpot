@@ -47,3 +47,11 @@ First react components created and used, along with deeper understanding of app.
 Created my first props in the forecast card component!
 
 Used useState for the first time along with onChange and onClick to make a text entry box that when you click the button next to it, send an alert that says what you typed into the box!
+
+Created my first SearchBarProps interface to define what stuff my search bar component accepts.
+
+Learned how child components like my SearchBar can pass data back UP to parent components, in this case App.tsx.
+
+Passed handleSearch from App.tsx as a prop into <SearchBar onSearch={handleSearch}/> so clicking Search in the child component updates setSelectedBeach in App.tsx!!!
+
+Understood how functions can be passed around like variables in TypeScript (how cool!).
