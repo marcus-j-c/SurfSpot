@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 export function SearchBar() {
     const [typedText, setTypedText] = useState(""); //this  variable holds what the user types
-    const handleSearch = () => alert("You searched for: " + typedText); //triggers when user hits button
+    const handleSearch = () => {alert("You searched for: " + typedText);}; //triggers when user hits button
 
     return (
         <div className="search-bar">
