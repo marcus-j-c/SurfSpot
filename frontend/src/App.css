@@ -6,5 +6,8 @@
   background-color: lightblue;
   padding: 20px; /*Pushes the text 20px away from the border on all sides*/
   border-radius: 12px; /*Rounded corners*/
-  width: 300px;
+  width: 400px;
+  display: flex; /*turns on flexbox*/
+  flex-direction: row; /*makes the flexbox horizontal instead of vertical*/
+  gap: 20px; /*adds spacing between cards*/
 }
