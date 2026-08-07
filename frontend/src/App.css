@@ -2,3 +2,9 @@
   background-color: royalblue;
   padding: 30px;
 }
+.forecast-card {
+  background-color: lightblue;
+  padding: 20px; /*Pushes the text 20px away from the border on all sides*/
+  border-radius: 12px; /*Rounded corners*/
+  width: 300px;
+}
