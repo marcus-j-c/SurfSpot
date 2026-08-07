@@ -55,3 +55,5 @@ Learned how child components like my SearchBar can pass data back UP to parent c
 Passed handleSearch from App.tsx as a prop into <SearchBar onSearch={handleSearch}/> so clicking Search in the child component updates setSelectedBeach in App.tsx!!!
 
 Understood how functions can be passed around like variables in TypeScript (how cool!).
+
+Used flexboxes for the first time
