@@ -68,3 +68,7 @@ Styled my first search bar, but its still needs a whole lot of work.
 Search bar is looking great, and ive got a centre header now that also looks good.
 
 Installed then uninstalled lucide react when i clocked that the icons sucked.
+
+Added basic account buttons, time to style them!!
+
+Made those basic account buttons look really cool with a glowing gradient animation, that is around the edge, and engulfs the whole button on hover!!!

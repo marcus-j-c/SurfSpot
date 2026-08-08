@@ -36,6 +36,58 @@
   grid-area: get-started-button;
   justify-self: center;
   align-self: center; 
+  gap: 10px;
+}
+
+.account-buttons button {
+  align-items: center;
+  border: none;
+  outline: none;
+  color: #FFF;
+  cursor: pointer; /*changes cursor to hand on hover, acc really cool*/
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+  font-size: 15px;
+}
+
+.account-buttons button::after {
+  content: "";
+  z-index: -1; /*sits behind*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  left: 0; /* these 2 lines align to top left corner*/
+  top: 0;
+  border-radius: 10px;
+}
+
+.account-buttons button::before {
+  content: "";
+  background: linear-gradient(45deg, #f97316, #f59e0b, #06b6d4, #0284c7, #f97316); /*my gradient :)*/
+  position: absolute;
+  top: -2px; /*extends layer 2px more then said edhe*/
+  left: -2px;
+  background-size: 600%; /*stretches gradient*/
+  z-index: -1; 
+  width: calc(100% + 4px); /*layer is 4px wider than button for outer edge*/
+  height: calc(100% + 4px); /*layer is 4px taller than button for outer edge*/
+  filter: blur(8px); /*softens grad edges*/
+  animation: glowing 20s linear infinite; /*20 second infintely looping animation*/
+  transition: opacity 0.3 ease-in-out; /*smooths transition*/
+  border-radius: 10px; /*rounds glow corners*/
+  opacity: 1;
+}
+@keyframes glowing {
+  0% {background-position: 0 0;} /*starts grad top left*/
+  50% {background-position: 400% 0;} /*slides grad across horizontally*/
+  100% {background-position: 0 0;} /*returns grad to start*/
+}
+
+.account-buttons button:hover::after {
+  background: transparent;
 }
 
 .box-4 { grid-area: box-4; }
@@ -65,7 +117,7 @@
   background: #f6f6f6; /*background colour for search bar container*/
   transition: background 0.25s; /*smooths out colour change on hover*/
   box-sizing: border-box; /*causes browser to include padding in calculations so perfectly fits grid lines*/
-  align-self: center; /*do not stretch vertically to fill whole tall row, shrink to your natural height as defined by other code*/
+  align-self: start; /*do not stretch vertically to fill whole tall row, shrink to your natural height as defined by other code*/
 }
 
 .search-bar:hover{
