@@ -8,7 +8,10 @@ interface SearchBarProps { //interface holds list of things (props (properties))
 
 export function SearchBar(props: SearchBarProps) {
     const [typedText, setTypedText] = useState(""); //this  variable holds what the user types
-    const handleSearch = () => {props.onSearch(typedText);}; //creates a func that grabs the onSearch tube and shoves down it the searchTerm, the user typed. This func is then saved in the variable handleSearch. This code is triggered when the user hits the search button
+    const handleSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault(); //stops page reloading when enter is hit
+        props.onSearch(typedText);
+    }; //creates a func that grabs the onSearch tube and shoves down it the searchTerm, the user typed. This func is then saved in the variable handleSearch. This code is triggered when the user hits the search button
     //the onSearch above has actually been replaced by the handleSearch function from App.tsx, therefore when doing props.onSearch(typedText) it is actually passing typedText into the handleSearch function from App.tsx, which then sets the selectedBeach state!!
     const handleType = (e: React.ChangeEvent<HTMLInputElement>) => { //looks for a change event in the input box
         const value = e.target.value; //saves said new value of input box to a variable
@@ -17,10 +20,10 @@ export function SearchBar(props: SearchBarProps) {
     };
     return (
         <>
-        <div className="search-bar">
-            <input type = "text" placeholder = "Enter a beach name..." onChange = {handleType}/>
-            <button onClick = {handleSearch}>Search</button>
-        </div>
+        <form className="search-bar" onSubmit = {handleSearch}>
+            <span className = "search-bar-icon material-symbols-outlined">search</span>
+            <input className = "search-bar-input" type = "text" placeholder = "Enter a beach name..." onChange = {handleType}/>
+        </form>
         </>
     );
 }
