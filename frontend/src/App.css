@@ -48,7 +48,6 @@
   outline: none;
   border: none;
   background: transparent;
-  flex-grow: 1;
 }
 
 .search-bar-input::placeholder,
