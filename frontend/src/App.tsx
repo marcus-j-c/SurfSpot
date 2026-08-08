@@ -5,11 +5,15 @@ import {SearchBar} from './components/SearchBar';
 
 function App() {
   const [selectedBeach, setSelectedBeach] = useState("");
+  const [typedText, setTypedText] = useState("");
   const handleSearch = (beachName: string) => {
-    setSelectedBeach(beachName);
-  }
+    setSelectedBeach(beachName);};
+  const handleType = (typedText: string) => {
+    setTypedText(typedText);
+  };
   return (
     <>
+    <div className = "Overall-Grid">
     <div className = "welcome">
       <h1>Hello Surfspot!</h1>
       <ForecastCard 
@@ -24,14 +28,18 @@ function App() {
         windDirection = "W"
         airTemp = {15.0}
         />
-        <ForecastCard
-        beachName = "Jeffreys Bay"
-        waveHeight = {1.6}
-        windDirection = "SW"
-        airTemp = {19.0}
-        />
-      <SearchBar onSearch = {handleSearch}/> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
-      <p>Currently showing forecast for: {selectedBeach}</p>
+      <ForecastCard
+      beachName = "Jeffreys Bay"
+      waveHeight = {1.6}
+      windDirection = "SW"
+      airTemp = {19.0}
+      />
+      </div>
+      <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
+      <div className = "typed-text-display">
+        <p>Current state of typedText: {typedText}</p>
+        <p>Currently showing forecast for: {selectedBeach}</p>
+      </div>
     </div>
     </>
   );
