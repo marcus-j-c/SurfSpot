@@ -56,4 +56,11 @@ Passed handleSearch from App.tsx as a prop into <SearchBar onSearch={handleSearc
 
 Understood how functions can be passed around like variables in TypeScript (how cool!).
 
-Used flexboxes for the first time
+Used flexboxes for the first time.
+
+## Day 4
+Begin proper fake Surfspot UI today.
+
+Moved a few things around using props and lifting up to enable better CSS design.
+
+Styled my first search bar, but its still needs a whole lot of work.
