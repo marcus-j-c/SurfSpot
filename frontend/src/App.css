@@ -1,9 +1,13 @@
 .Overall-Grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /*creates 3 columns that each take an equal fraction (fr) of the available space*/
-  grid-template-rows: repeat(3, 1fr); /*creates 3 rows that each take an equal fraction (fr) of the available space*/
+  grid-template-columns: repeat(5, 1fr); /*creates 3 columns that each take an equal fraction (fr) of the available space*/
+  grid-template-rows: 1fr 3fr 2fr; /*creates 3 rows that each take an equal fraction (fr) of the available space*/
   height: 100vh; /*100vh = 100% of users screen height*/
   width: 100%; /*100% of users screen width*/
+  grid-template-areas: 
+  "box-1 box-2 box-2 box-2 box-3"
+  "box-4 typed-text-display typed-text-display typed-text-display box-5"
+  "box-6 search-bar search-bar search-bar box-7";
 }
 
 .welcome {
@@ -23,17 +27,26 @@
   gap: 20px; /*adds spacing between cards*/
 }
 
+.box-1 { grid-area: box-1; } /*says that this container is represented by box-x in the grid-template-areas bit above*/
+.box-2 { grid-area: box-2; }
+.box-3 { grid-area: box-3; }
+.box-4 { grid-area: box-4; }
+.box-5 { grid-area: box-5; }
+.box-6 { grid-area: box-6; }
+.box-7 { grid-area: box-7; }
+
 .search-bar {
-  --padding: 14px;
-  width: max-content;
+  --padding: 14px; /*shortcut variable named -- padding that stores 14px*/
+  width: 100%; /*fill all grid space allocated to you*/
   display: flex;
-  grid-column: 2; /*makes the search bar take up all 3 columns of the grid*/
-  grid-row: 2; /*makes the search bar take up the second row of the grid*/
-  align-items: center;
-  padding: var(--padding);
+  grid-area: search-bar; /*says that this container is represented by search-bar in the grid-template-areas bit above*/
+  align-items: center; /* vertically centres all items relating to the search bar in the search bar*/
+  padding: var(--padding); /*calls padding shortcut*/
   border-radius: 28px;
-  background: #f6f6f6;
-  transition: background 0.25s;
+  background: #f6f6f6; /*background colour for search bar container*/
+  transition: background 0.25s; /*smooths out colour change on hover*/
+  box-sizing: border-box; /*causes browser to include padding in calculations so perfectly fits grid lines*/
+  align-self: center; /*do not stretch vertically to fill whole tall row, shrink to your natural height as defined by other code*/
 }
 
 .search-bar:hover{
@@ -45,9 +58,10 @@
   font-family: 'Lexend', sans-serif;
   color: #333333;
   margin-left: var(--padding);
-  outline: none;
-  border: none;
+  outline: none; /*removes outline when you click on input box*/
+  border: none; /*removes border line around input field*/
   background: transparent;
+  flex-grow: 1; /*stretches it to match the actual input box to match the flexbox search bar*/
 }
 
 .search-bar-input::placeholder,
@@ -56,8 +70,7 @@
 }
 
 .typed-text-display {
+  grid-area: typed-text-display;
   display: flex;
   flex-direction: column;
-  grid-column: 2;
-  grid-row: 3;
 }
