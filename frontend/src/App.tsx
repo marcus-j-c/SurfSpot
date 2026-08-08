@@ -14,7 +14,7 @@ function App() {
   return (
     <>
     <div className = "Overall-Grid">
-    <div className = "welcome">
+    {/*<div className = "welcome">
       <h1>Hello Surfspot!</h1>
       <ForecastCard 
         beachName = "Bonzai Pipeline"
@@ -34,7 +34,7 @@ function App() {
       windDirection = "SW"
       airTemp = {19.0}
       />
-      </div>
+      </div>*/}
       <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
       <div className = "typed-text-display">
         <p>Current state of typedText: {typedText}</p>

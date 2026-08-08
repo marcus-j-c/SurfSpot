@@ -24,13 +24,36 @@
 }
 
 .search-bar {
+  --padding: 14px;
+  width: max-content;
   display: flex;
-  grid-column: 1 / -1; /*makes the search bar take up all 3 columns of the grid*/
+  grid-column: 2; /*makes the search bar take up all 3 columns of the grid*/
   grid-row: 2; /*makes the search bar take up the second row of the grid*/
+  align-items: center;
+  padding: var(--padding);
+  border-radius: 28px;
+  background: #f6f6f6;
+  transition: background 0.25s;
 }
 
-.search-bar input {
-  flex-grow: 1; /* Tells input box to expand to fill all remaining space */
+.search-bar:hover{
+  background: #f1f1f1;
+}
+
+.search-bar-input {
+  font-size: 16px;
+  font-family: 'Lexend', sans-serif;
+  color: #333333;
+  margin-left: var(--padding);
+  outline: none;
+  border: none;
+  background: transparent;
+  flex-grow: 1;
+}
+
+.search-bar-input::placeholder,
+.search-bar-icon {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .typed-text-display {
