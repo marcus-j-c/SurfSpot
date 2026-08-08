@@ -1,7 +1,18 @@
+.Overall-Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /*creates 3 columns that each take an equal fraction (fr) of the available space*/
+  grid-template-rows: repeat(3, 1fr); /*creates 3 rows that each take an equal fraction (fr) of the available space*/
+  height: 100vh; /*100vh = 100% of users screen height*/
+  width: 100%; /*100% of users screen width*/
+}
+
 .welcome {
+  grid-column: 1;
+  grid-row: 1;
   background-color: royalblue;
   padding: 30px;
 }
+
 .forecast-card {
   background-color: lightblue;
   padding: 20px; /*Pushes the text 20px away from the border on all sides*/
@@ -10,4 +21,21 @@
   display: flex; /*turns on flexbox*/
   flex-direction: row; /*makes the flexbox horizontal instead of vertical*/
   gap: 20px; /*adds spacing between cards*/
+}
+
+.search-bar {
+  display: flex;
+  grid-column: 1 / -1; /*makes the search bar take up all 3 columns of the grid*/
+  grid-row: 2; /*makes the search bar take up the second row of the grid*/
+}
+
+.search-bar input {
+  flex-grow: 1; /* Tells input box to expand to fill all remaining space */
+}
+
+.typed-text-display {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 3;
 }
