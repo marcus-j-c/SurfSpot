@@ -5,7 +5,7 @@
   height: 100vh; /*100vh = 100% of users screen height*/
   width: 100%; /*100% of users screen width*/
   grid-template-areas: 
-  "box-1 box-2 box-2 box-2 box-3"
+  "box-1 box-2 box-2 box-2 get-started-button"
   "box-4 centre-header centre-header centre-header box-6"
   "typed-text-display search-bar search-bar search-bar box-7";
 }
@@ -29,8 +29,17 @@
 
 .box-1 { grid-area: box-1; } /*says that this container is represented by box-x in the grid-template-areas bit above*/
 .box-2 { grid-area: box-2; }
-.box-3 { grid-area: box-3; }
+
+.account-buttons {
+  display: flex; 
+  flex-direction: row;
+  grid-area: get-started-button;
+  justify-self: center;
+  align-self: center; 
+}
+
 .box-4 { grid-area: box-4; }
+
 .centre-header { 
   grid-area: centre-header;
   font-family: "Pacifico", cursive;
@@ -41,6 +50,7 @@
   font-size: 64px;
   
 }
+
 .box-6 { grid-area: box-6; }
 .box-7 { grid-area: box-7; }
 

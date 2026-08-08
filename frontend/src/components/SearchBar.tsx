@@ -20,7 +20,7 @@ export function SearchBar(props: SearchBarProps) {
     };
     return (
         <>
-        <form className="search-bar" onSubmit = {handleSearch}>
+        <form className = "search-bar" onSubmit = {handleSearch}>
             <span className = "search-bar-icon material-symbols-outlined">search</span>
             <input className = "search-bar-input" type = "text" placeholder = "Enter a beach name..." onChange = {handleType}/>
         </form>
