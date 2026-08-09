@@ -17,7 +17,7 @@ function App() {
   return (
     <>
     <div className = "overall-grid">
-      <div className="title-and-logo"><img src ="../public/favicon.svg"></img>SurfSpot</div> {/*temporary classes for grid*/}
+      <div className="title-and-logo"><img src ="../favicon.svg"></img>SurfSpot</div> {/*temporary classes for grid*/}
       <div className="centre-header">Is it worth surfing today?</div>
       <div className="box-6">Box 6</div>
     {/*<div className = "welcome">
