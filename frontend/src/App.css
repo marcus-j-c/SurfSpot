@@ -6,8 +6,8 @@
   width: 100%; /*100% of users screen width*/
   grid-template-areas: 
   "title-and-logo nav-bar nav-bar nav-bar get-started-button"
-  "box-4 centre-header centre-header centre-header box-6"
-  "typed-text-display search-bar search-bar search-bar box-7";
+  "side-bar centre-header centre-header centre-header box-6"
+  "side-bar search-bar search-bar search-bar typed-text-display";
 }
 
 .welcome {
@@ -145,7 +145,34 @@
   background: transparent;
 }
 
-.box-4 { grid-area: box-4; }
+.side-bar { 
+  grid-area: side-bar; 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: start;
+  justify-content: center;
+  padding: 0rem 0.5rem;
+}
+
+.side-bar nav {
+  width: fit-content;
+  padding: 2rem 0.75rem;
+  margin-top: 1rem;
+}
+
+.side-bar-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  gap: 6.75rem;
+  justify-content: center; /*centres the links horizontally within the nav bar*/
+  align-items: center; /*centres the links vertically within the nav bar*/
+}
 
 .centre-header { 
   grid-area: centre-header;

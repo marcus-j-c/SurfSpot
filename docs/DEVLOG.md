@@ -72,3 +72,6 @@ Installed then uninstalled lucide react when i clocked that the icons sucked.
 Added basic account buttons, time to style them!!
 
 Made those basic account buttons look really cool with a glowing gradient animation, that is around the edge, and engulfs the whole button on hover!!!
+
+## Day 5
+Ugh more CSS, it sucks! Finally got a navbar that looks acceptable though thankfully, only took me like 3 hours :( otherwise minimal progress made.

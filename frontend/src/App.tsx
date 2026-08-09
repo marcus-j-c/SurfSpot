@@ -4,6 +4,7 @@ import {ForecastCard} from './components/ForecastCard';
 import {SearchBar} from './components/SearchBar';
 import {AccountButtons} from './components/AccountButtons'
 import {NavBar} from "./components/NavBar";
+import { SideBar } from "./components/SideBar";
 
 function App() {
   const [selectedBeach, setSelectedBeach] = useState("");
@@ -16,11 +17,9 @@ function App() {
   return (
     <>
     <div className = "overall-grid">
-      <div className="title-and-logo">SurfSpot</div> {/*temporary classes for grid*/}
-      <div className="box-4">Box 4</div>
+      <div className="title-and-logo"><img src ="../public/favicon.svg"></img>SurfSpot</div> {/*temporary classes for grid*/}
       <div className="centre-header">Is it worth surfing today?</div>
       <div className="box-6">Box 6</div>
-      <div className="box-7">Box 7</div>
     {/*<div className = "welcome">
       <h1>Hello Surfspot!</h1>
       <ForecastCard 
@@ -45,6 +44,7 @@ function App() {
       <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
       <AccountButtons/>
       <NavBar/>
+      <SideBar/>
       <div className = "typed-text-display">
         <p>Current state of typedText: {typedText}</p>
         <p>Currently showing forecast for: {selectedBeach}</p>
