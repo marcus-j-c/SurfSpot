@@ -1,11 +1,11 @@
 .overall-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /*creates 3 columns that each take an equal fraction (fr) of the available space*/
-  grid-template-rows: 1fr 3fr 2fr; /*creates 3 rows that each take an equal fraction (fr) of the available space*/
-  height: 100vh; /*100vh = 100% of users screen height*/
+  grid-template-rows: auto 3fr 2fr; /*keep the header row sized to its content*/
+  min-height: 100vh; /*100vh = 100% of users screen height*/
   width: 100%; /*100% of users screen width*/
   grid-template-areas: 
-  "box-1 box-2 box-2 box-2 get-started-button"
+  "title-and-logo nav-bar nav-bar nav-bar get-started-button"
   "box-4 centre-header centre-header centre-header box-6"
   "typed-text-display search-bar search-bar search-bar box-7";
 }
@@ -27,15 +27,72 @@
   gap: 20px; /*adds spacing between cards*/
 }
 
-.box-1 { grid-area: box-1; } /*says that this container is represented by box-x in the grid-template-areas bit above*/
-.box-2 { grid-area: box-2; }
+.title-and-logo { 
+  grid-area: title-and-logo;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  align-self: center;
+  justify-self: center;
+  font-size: 32px;
+}
+.nav-bar {
+  grid-area: nav-bar;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  border-radius: 28px;
+}
+
+.nav-bar nav {
+  width: fit-content;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.nav-bar-links {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none; /*removes bullet points from list*/
+  margin: 0;
+  padding: 0;
+  gap: clamp(1.5rem, 4vw, 5rem);
+  justify-content: center; /*centres the links horizontally within the nav bar*/
+  align-items: center; /*centres the links vertically within the nav bar*/
+}
+
+.nav-bar-links a {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /*removes underline from links*/
+  color: #000000;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 18px;
+  border-radius: 999px;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-bar-links a:hover {
+  color: #38bdf8;
+  text-shadow: 0 0 10px #38bdf8;
+  transform: translateY(-1px);
+}
 
 .account-buttons {
   display: flex; 
   flex-direction: row;
   grid-area: get-started-button;
   justify-self: center;
-  align-self: center; 
+  align-self: center;
   gap: 10px;
 }
 
@@ -50,6 +107,8 @@
   border-radius: 12px;
   padding: 1rem 0.5rem;
   font-size: 15px;
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
 }
 
 .account-buttons button::after {
@@ -100,7 +159,7 @@
   align-self: center;
   justify-self: center; /*centre horizontally*/
   font-size: 64px;
-  
+  color: #005477;
 }
 
 .box-6 { grid-area: box-6; }
