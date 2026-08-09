@@ -75,3 +75,5 @@ Made those basic account buttons look really cool with a glowing gradient animat
 
 ## Day 5
 Ugh more CSS, it sucks! Finally got a navbar that looks acceptable though thankfully, only took me like 3 hours :( otherwise minimal progress made.
+
+Started creating sidebar
