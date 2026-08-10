@@ -77,3 +77,6 @@ Made those basic account buttons look really cool with a glowing gradient animat
 Ugh more CSS, it sucks! Finally got a navbar that looks acceptable though thankfully, only took me like 3 hours :( otherwise minimal progress made.
 
 Started creating sidebar
+
+# Day 6
+A bit more styling added to the sidebar, man i hate CSS, hopefully i can be done with it soon, im so much better at coding logic haha, added the a trending up/down icon for the trending beaches sidebar and made it align nicely with nice gaps, and a nice green colour.
