@@ -89,3 +89,5 @@ Adjusted the length of the search bar so it looks right.
 Added a really cool typewriter animation to the centre header using CSS but mostly useEffect which i had never used before, took ages, but so worth it!!
 
 Learnt shorthand if statements, they are so useful!!
+
+Turned the header into this super cool wave animation, using svgs and starting each wave with a delay so they are offset!
