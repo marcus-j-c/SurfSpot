@@ -5,6 +5,7 @@ import {SearchBar} from './components/SearchBar';
 import {AccountButtons} from './components/AccountButtons'
 import {NavBar} from "./components/NavBar";
 import { SideBar } from "./components/SideBar";
+import { CentreHeader } from "./components/CentreHeader";
 
 function App() {
   const [selectedBeach, setSelectedBeach] = useState("");
@@ -18,7 +19,6 @@ function App() {
     <>
     <div className = "overall-grid">
       <div className="title-and-logo"><img src ="../favicon.svg"></img>SurfSpot</div> {/*temporary classes for grid*/}
-      <div className="centre-header">Is it worth surfing today?</div>
       <div className="box-6">Box 6</div>
     {/*<div className = "welcome">
       <h1>Hello Surfspot!</h1>
@@ -41,6 +41,7 @@ function App() {
       airTemp = {19.0}
       />
       </div>*/}
+      <CentreHeader/>
       <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
       <AccountButtons/>
       <NavBar/>
