@@ -283,6 +283,8 @@
   transition: 0.25s; /*smooths out colour change on hover*/
   box-sizing: border-box; /*causes browser to include padding in calculations so perfectly fits grid lines*/
   align-self: start; /*do not stretch vertically to fill whole tall row, shrink to your natural height as defined by other code*/
+  max-width: 900px;
+  justify-self: center;
 }
 
 .search-bar:hover{
