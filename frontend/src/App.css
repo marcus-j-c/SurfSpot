@@ -10,11 +10,59 @@
   "side-bar search-bar search-bar search-bar typed-text-display";
 }
 
-.sun-moon-top-header {
-  grid-row: 1; /*places the header in the first row of the grid*/
+.wave-top-header {
+  grid-row: 1;
   grid-column: 1 / -1; /*spans all columns*/
-  z-index: 1; 
-  background-color: red;
+  overflow: hidden; /*removes any part of the wave animation that ends up outside this box*/
+  position: relative; /*allows child elements to use postion: absolute relative to this*/
+  z-index: 1;
+  background: linear-gradient(60deg, #38bdf8 0%, #0284c7 100%);
+  color: #ffffff
+}
+
+.waves {
+  width: 100%; /*forces svg to fill the full screen width*/
+  height: 60px; /*sets tartget height for wave shapes*/
+  min-height: 40px; /*prevents waves becoming too small*/
+  max-height: 100%; /*stops waves from being bigger than the header*/
+  position: absolute; /*pins svg to edges of header*/
+  bottom: 0;
+  left: 0;
+  pointer-events: none; /*doesnt block mouse clicks*/
+}
+
+.parallax > use { /*animates each indiviual wave with dealys (basically so the waves are staggered*/
+  animation: move-forever 25s 
+  cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes move-forever { /*makes the waves move across the header*/
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
 }
 
 .title-and-logo { 
