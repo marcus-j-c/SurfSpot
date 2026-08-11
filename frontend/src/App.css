@@ -10,21 +10,11 @@
   "side-bar search-bar search-bar search-bar typed-text-display";
 }
 
-.welcome {
-  grid-column: 1;
-  grid-row: 1;
-  background-color: royalblue;
-  padding: 30px;
-}
-
-.forecast-card {
-  background-color: lightblue;
-  padding: 20px; /*Pushes the text 20px away from the border on all sides*/
-  border-radius: 12px; /*Rounded corners*/
-  width: 400px;
-  display: flex; /*turns on flexbox*/
-  flex-direction: row; /*makes the flexbox horizontal instead of vertical*/
-  gap: 20px; /*adds spacing between cards*/
+.sun-moon-top-header {
+  grid-row: 1; /*places the header in the first row of the grid*/
+  grid-column: 1 / -1; /*spans all columns*/
+  z-index: 1; 
+  background-color: red;
 }
 
 .title-and-logo { 
@@ -35,6 +25,7 @@
   align-self: center;
   justify-self: center;
   font-size: 32px;
+  z-index: 2;
 }
 .nav-bar {
   grid-area: nav-bar;
@@ -52,6 +43,7 @@
   color: #ffffff;
   background-color: #333333;
   border-radius: 14px;
+  z-index: 2;
 }
 
 .nav-bar nav {
@@ -107,6 +99,7 @@
   justify-self: center;
   align-self: center;
   gap: 10px;
+  z-index: 2;
 }
 
 .account-buttons button {

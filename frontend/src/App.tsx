@@ -18,29 +18,11 @@ function App() {
   return (
     <>
     <div className = "overall-grid">
+      <div className = "sun-moon-top-header">
+        <div className = "sun-moon-orb"></div>
+      </div>
       <div className="title-and-logo"><img src ="../favicon.svg"></img>SurfSpot</div> {/*temporary classes for grid*/}
       <div className="box-6">Box 6</div>
-    {/*<div className = "welcome">
-      <h1>Hello Surfspot!</h1>
-      <ForecastCard 
-        beachName = "Bonzai Pipeline"
-        waveHeight = {3.8}
-        windDirection ="ENE"
-        airTemp = {28.0}
-      />
-      <ForecastCard
-        beachName = "Bells Beach"
-        waveHeight = {2.3}
-        windDirection = "W"
-        airTemp = {15.0}
-        />
-      <ForecastCard
-      beachName = "Jeffreys Bay"
-      waveHeight = {1.6}
-      windDirection = "SW"
-      airTemp = {19.0}
-      />
-      </div>*/}
       <CentreHeader/>
       <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
       <AccountButtons/>
