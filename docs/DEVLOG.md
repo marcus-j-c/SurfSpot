@@ -85,3 +85,7 @@ A bit more styling added to the sidebar, man i hate CSS, hopefully i can be done
 Side bar done for now, wow that took a long time holy, just gotta do the background and maybe spruce up the nabvbar, then its onto the actual fake logic.
 
 Adjusted the length of the search bar so it looks right.
+
+Added a really cool typewriter animation to the centre header using CSS but mostly useEffect which i had never used before, took ages, but so worth it!!
+
+Learnt shorthand if statements, they are so useful!!
