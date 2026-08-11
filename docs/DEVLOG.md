@@ -80,3 +80,8 @@ Started creating sidebar
 
 # Day 6
 A bit more styling added to the sidebar, man i hate CSS, hopefully i can be done with it soon, im so much better at coding logic haha, added the a trending up/down icon for the trending beaches sidebar and made it align nicely with nice gaps, and a nice green colour.
+
+# Day 7 
+Side bar done for now, wow that took a long time holy, just gotta do the background and maybe spruce up the nabvbar, then its onto the actual fake logic.
+
+Adjusted the length of the search bar so it looks right.
