@@ -19,7 +19,7 @@ export function CentreHeader() {
         typingSpeed = 100;
     }
     if (isDeleting === false && displayText === currentFullWord) { //pause if word is fully writen.
-      typingSpeed = 5000;
+      typingSpeed = 6150;
     }
     if (isDeleting === true && displayText === "") { //pause if word is fully deleted.
       typingSpeed = 400;
@@ -47,7 +47,7 @@ export function CentreHeader() {
   }, [displayText, isDeleting, i, dynamicText]); //rerun code if any of these change.
   return (
   <div className="centre-header">
-    Is it worth <span className={textClass}>{displayText}</span> today?
+    Is it worth <span className={textClass}>{displayText}</span>today?
   </div>
 );
 }

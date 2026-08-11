@@ -38,18 +38,25 @@
 }
 .nav-bar {
   grid-area: nav-bar;
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: row;
   align-items: center;
   align-self: center;
-  justify-content: center;
-  padding: 0.5rem 0;
+  justify-self: center;
+  padding: 0.5rem 0.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #333333;
+  border-radius: 14px;
 }
 
 .nav-bar nav {
   width: fit-content;
-  padding: 0.75rem 2rem;
+  padding: 0;
 }
 
 .nav-bar-links {
@@ -59,28 +66,38 @@
   list-style-type: none; /*removes bullet points from list*/
   margin: 0;
   padding: 0;
-  gap: clamp(1.5rem, 4vw, 5rem);
+  gap: 0.5rem;;
   justify-content: center; /*centres the links horizontally within the nav bar*/
   align-items: center; /*centres the links vertically within the nav bar*/
 }
 
+.nav-bar-links li {
+  width: auto;
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  padding: 0.5rem 1.25rem;
+  transition: transform 0.25s ease;
+}
+
+.nav-bar-links li:hover {
+  transform: translateY(-2px);
+}
+
 .nav-bar-links a {
-  display: flex;
-  align-items: center;
+  display: inline-block;
   text-decoration: none; /*removes underline from links*/
-  color: #000000;
+  color: #f3f4f6;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-style: italic;
-  font-size: 18px;
-  border-radius: 999px;
-  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
-.nav-bar-links a:hover {
+.nav-bar-links li:hover a {
   color: #38bdf8;
   text-shadow: 0 0 10px #38bdf8;
-  transform: translateY(-1px);
 }
 
 .account-buttons {
