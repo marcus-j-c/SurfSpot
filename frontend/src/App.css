@@ -201,7 +201,6 @@
   color: #f3f4f6;
   font-family: "Kalam", cursive;
   font-weight: 400;
-  font-style: normal;
   font-size: 18px;;
 }
 
@@ -261,11 +260,33 @@
   grid-area: centre-header;
   font-family: "Pacifico", cursive;
   font-weight: 400;
-  font-style: normal;
   align-self: center;
   justify-self: center; /*centre horizontally*/
   font-size: 64px;
   color: #005477;
+  white-space: nowrap; /*never leaves one line*/
+}
+
+.dynamic-text {
+  color: #f97316;
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+}
+
+.dynamic-text::after {
+  content: "|";
+  color: #f97316;
+  opacity: 1;
+}
+
+.dynamic-text.blinking::after {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0% {opacity: 1;}
+  50% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 .box-6 { grid-area: box-6; }
