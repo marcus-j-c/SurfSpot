@@ -8,7 +8,7 @@ export function SideBar() {
             <nav>
                 <ul className = "side-bar-links">
                 <li>
-                    <a href = "#" className = "trending-item">
+                    <a href = "/spot/bonzai-pipeline" className = "trending-item">
                         <div className = "beach-info">
                             <span className = "beach-name">1. Bonzai Pipeline</span>
                             <span className = "beach-location">Hawaii, USA</span>
@@ -18,7 +18,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href = "#" className = "trending-item">
+                    <a href = "/spot/bells-beach" className = "trending-item">
                         <div className = "beach-info">
                             <span className = "beach-name">2. Bells Beach</span>
                             <span className = "beach-location">Victoria, Australia</span>
@@ -28,7 +28,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href = "#" className = "trending-item">
+                    <a href = "/spot/jeffreys-bay" className = "trending-item">
                         <div className = "beach-info">
                             <span className = "beach-name">3. Jeffreys Bay</span>
                             <span className = "beach-location">Eastern Cape, South Africa</span>
@@ -38,7 +38,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href = "#" className = "trending-item">
+                    <a href = "/spot/teahupo'o" className = "trending-item">
                         <div className = "beach-info">
                             <span className = "beach-name">4. Teahupo'o</span>
                             <span className = "beach-location">Tahiti, French Polynesia</span>
@@ -48,7 +48,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href = "#" className = "trending-item">
+                    <a href = "/spot/supertubos" className = "trending-item">
                         <div className = "beach-info">
                             <span className = "beach-name">5. Supertubos</span>
                             <span className = "beach-location">Peniche, Portugal</span>
@@ -58,7 +58,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="trending-item">
+                    <a href = "/spot/nazaré" className = "trending-item">
                         <div className="beach-info">
                             <span className="beach-name">6. Nazaré</span>
                             <span className="beach-location">Leiria, Portugal</span>
@@ -68,7 +68,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="trending-item">
+                    <a href = "/spot/uluwatu" className = "trending-item">
                         <div className="beach-info">
                             <span className="beach-name">7. Uluwatu</span>
                             <span className="beach-location">Bali, Indonesia</span>
@@ -78,7 +78,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="trending-item">
+                    <a href = "/spot/gold-coast" className = "trending-item">
                         <div className="beach-info">
                             <span className="beach-name">8. Gold Coast</span>
                             <span className="beach-location">Queensland, Australia</span>
@@ -88,7 +88,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="trending-item">
+                    <a href = "/spot/mavericks" className = "trending-item">
                         <div className="beach-info">
                             <span className="beach-name">9. Mavericks</span>
                             <span className="beach-location">California, USA</span>
@@ -98,7 +98,7 @@ export function SideBar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="trending-item">
+                    <a href = "/spot/hossegor" className = "trending-item">
                         <div className="beach-info">
                             <span className="beach-name">10. Hossegor</span>
                             <span className="beach-location">Landes, France</span>
