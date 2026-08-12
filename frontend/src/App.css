@@ -1,7 +1,7 @@
 .overall-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /*creates 3 columns that each take an equal fraction (fr) of the available space*/
-  grid-template-rows: 1fr 3fr 2fr; /*keep the header row sized to its content*/
+  grid-template-rows: 90px 3fr 2fr; /*keep the header row sized to its content*/
   min-height: 100vh; /*100vh = 100% of users screen height*/
   width: 100%; /*100% of users screen width*/
   grid-template-areas: 
