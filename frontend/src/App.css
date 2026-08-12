@@ -1,3 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("/ocean-bg.jpg");
+  backdrop-filter: blur(8px);
+  background-size: cover; /*fits whole screen*/
+  background-position: center; /*centres image*/
+  background-repeat: no-repeat; /*prevents image from repeating*/
+  background-attachment: fixed; /*prevents image from scrolling with page*/
+  min-height: 100vh;
+  overflow:hidden;
+}
+
 .overall-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /*creates 3 columns that each take an equal fraction (fr) of the available space*/

@@ -100,3 +100,5 @@ Small change to the shape of the account buttons defo looks better.
 Decided to give up on the appeareance for now as its driving me insane, ill come back to it later.
 
 Just set up react router, and changes my css, so the logo navbar and account buttons persist across every page and damn it looks so cool, and holy is it so useful too be able to do that!!
+
+Added a single background photo, just as a test, gonna leave it like this for now, work in progress.
