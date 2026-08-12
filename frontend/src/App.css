@@ -6,6 +6,22 @@
   width: 100%; /*100% of users screen width*/
   grid-template-areas: 
   "title-and-logo nav-bar nav-bar nav-bar get-started-button"
+  "main-content   main-content main-content main-content main-content";
+}
+
+.main-content {
+  grid-area: main-content;
+  width: 100%;
+  height: 100%;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: 3fr 2fr;
+  wdith: 100%;
+  height: 100%;
+  grid-template-areas:
   "side-bar centre-header centre-header centre-header box-6"
   "side-bar search-bar search-bar search-bar typed-text-display";
 }
