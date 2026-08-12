@@ -78,10 +78,10 @@ Ugh more CSS, it sucks! Finally got a navbar that looks acceptable though thankf
 
 Started creating sidebar
 
-# Day 6
+## Day 6
 A bit more styling added to the sidebar, man i hate CSS, hopefully i can be done with it soon, im so much better at coding logic haha, added the a trending up/down icon for the trending beaches sidebar and made it align nicely with nice gaps, and a nice green colour.
 
-# Day 7 
+## Day 7 
 Side bar done for now, wow that took a long time holy, just gotta do the background and maybe spruce up the nabvbar, then its onto the actual fake logic.
 
 Adjusted the length of the search bar so it looks right.
@@ -91,3 +91,6 @@ Added a really cool typewriter animation to the centre header using CSS but most
 Learnt shorthand if statements, they are so useful!!
 
 Turned the header into this super cool wave animation, using svgs and starting each wave with a delay so they are offset!
+
+## Day 8
+I've switched up the navbar and the account buttons to glassmorphism and i do think it looks better, but idk why my website always looks so tacky its infuriating. I just wanna get back to coding logic i hate CSS and design.
