@@ -96,3 +96,7 @@ Turned the header into this super cool wave animation, using svgs and starting e
 I've switched up the navbar and the account buttons to glassmorphism and i do think it looks better, but idk why my website always looks so tacky its infuriating. I just wanna get back to coding logic i hate CSS and design.
 
 Small change to the shape of the account buttons defo looks better.
+
+Decided to give up on the appeareance for now as its driving me insane, ill come back to it later.
+
+Just set up react router, and changes my css, so he logo navbar and account buttons persist across every page and damn it looks so cool, and holy is it so useful too be able to do that!!
