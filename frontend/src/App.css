@@ -200,19 +200,19 @@
 .side-bar { 
   grid-area: side-bar; 
   width: fit-content;
+  align-self: start;
+  border-radius: 14px;
+  padding: 0.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: start;
   justify-content: center;
-  padding: 0.5rem 0.5rem;
   font-family: "Montserrat", sans-serif;
   font-style: italic;
   font-weight: 700;
   font-size: 14px;
   color: #ffffff;
   background-color: #DECFAF;
-  border-radius: 14px;
 }
 
 .side-bar h1 {
