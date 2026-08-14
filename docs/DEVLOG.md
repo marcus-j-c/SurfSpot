@@ -104,4 +104,8 @@ Just set up react router, and changes my css, so the logo navbar and account but
 Added a single background photo, just as a test, gonna leave it like this for now, work in progress.
 
 ## Day 9
-I've completely redesigned the look and i think personally that it is way better!!
+I've completely redesigned the look and i think personally that it is way better, made the sidebar glasmorphism along with the search bar!!
+
+Completely switched up the colours in the top header and it looks way better!!! 
+
+Next goal is to find someway to blend that header line into my background.
