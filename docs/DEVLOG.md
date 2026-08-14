@@ -111,3 +111,5 @@ Completely switched up the colours in the top header and it looks way better!!!
 Next goal is to find someway to blend that header line into my background.
 
 Close to sorting out the positioning of seachbar and center header.
+
+Getting started on generic beach pages.
