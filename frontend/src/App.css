@@ -39,6 +39,21 @@ body {
   "side-bar search-bar search-bar search-bar typed-text-display";
 }
 
+.beach-page-grid {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: repeat(7, 1fr);
+  width: 100%;
+  height: 100%;
+  grid-template-areas:
+  "box-6 beach-header beach-header beach-header box-6"
+  "box-6 stats-box stats-box stats-box box-6"
+  "box-6 stats-box stats-box stats-box box-6"
+  "box-6 why-rating why-rating why-rating box-6"
+  "box-6 good-stuff good-stuff good-stuff box-6"
+  "box-6 bad-stuff bad-stuff bad-stuff box-6";
+
+}
 .wave-top-header {
   grid-row: 1;
   grid-column: 1 / -1; /*spans all columns*/
