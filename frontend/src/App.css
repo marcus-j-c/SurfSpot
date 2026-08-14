@@ -45,8 +45,7 @@ body {
   overflow: hidden; /*removes any part of the wave animation that ends up outside this box*/
   position: relative; /*allows child elements to use postion: absolute relative to this*/
   z-index: 1;
-  background: linear-gradient(60deg, #38bdf8 0%, #0284c7 100%);
-  color: #ffffff
+  background: linear-gradient(180deg, #38bdf8 0%, #fde047 100%);
 }
 
 .waves {
@@ -103,6 +102,7 @@ body {
   justify-self: center;
   font-size: 32px;
   z-index: 2;
+  color: #ffffff;
 }
 .nav-bar {
   grid-area: nav-bar;
@@ -148,7 +148,7 @@ body {
 }
 
 .nav-bar-links a {
-  color: #000000;
+  color: #f3f4f6;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 17px;
@@ -174,7 +174,7 @@ body {
   align-items: center;
   border: none;
   outline: none;
-  color: #000000;
+  color: #f3f4f6;
   cursor: pointer; /*changes cursor to hand on hover, acc really cool*/
   position: relative;
   z-index: 0;
@@ -346,11 +346,12 @@ body {
   grid-area: centre-header;
   font-family: "Pacifico", cursive;
   font-weight: 400;
-  align-self: center;
+  align-self: end;
   justify-self: center; /*centre horizontally*/
   font-size: 64px;
   color: #7dd3fc;
   white-space: nowrap; /*never leaves one line*/
+  margin-bottom: 3rem;
 }
 
 .dynamic-text {
