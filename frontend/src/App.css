@@ -8,7 +8,7 @@ body {
   background-repeat: no-repeat; /*prevents image from repeating*/
   background-attachment: fixed; /*prevents image from scrolling with page*/
   min-height: 100vh;
-  overflow:hidden;
+  overflow:hidden; /*cuts off anything that would cause a scrollbar*/
 }
 
 .overall-grid {
@@ -31,7 +31,7 @@ body {
 .home-grid {
   display: grid;
   grid-template-columns: repeat(5,1fr);
-  grid-template-rows: 3fr 2fr;
+  grid-template-rows: 2.6fr 2.4fr;
   width: 100%;
   height: 100%;
   grid-template-areas:
@@ -42,7 +42,7 @@ body {
 .wave-top-header {
   grid-row: 1;
   grid-column: 1 / -1; /*spans all columns*/
-  overflow: hidden; /*removes any part of the wave animation that ends up outside this box*/
+  mask-image: linear-gradient(to bottom, #000000 88%, transparent 100%); /*mask image blends using opacity*/
   position: relative; /*allows child elements to use postion: absolute relative to this*/
   z-index: 1;
   background: linear-gradient(180deg, #38bdf8 0%, #fde047 100%);
@@ -116,13 +116,12 @@ body {
   border-radius: 30px;
   padding: 0.5rem 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px); /*backdrop filter does whatever effect is said to the background behind the element*/
   padding: 0.85rem 2.25rem;
 }
 
 .nav-bar nav {
   width: fit-content;
-  padding: 0;
 }
 
 .nav-bar-links {
@@ -351,7 +350,7 @@ body {
   font-size: 64px;
   color: #7dd3fc;
   white-space: nowrap; /*never leaves one line*/
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .dynamic-text {
@@ -376,8 +375,10 @@ body {
   100% {opacity: 1;}
 }
 
-.box-6 { grid-area: box-6; }
-.box-7 { grid-area: box-7; }
+.box-6 { 
+  grid-area: box-6; 
+  color: #f3f4f6;
+}
 
 .search-bar {
   --padding: 14px; /*shortcut variable named -- padding that stores 14px*/
@@ -421,4 +422,5 @@ body {
   grid-area: typed-text-display;
   display: flex;
   flex-direction: column;
+  color: #f3f4f6;
 }
