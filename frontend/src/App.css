@@ -396,6 +396,7 @@ body {
   align-self: start; /*do not stretch vertically to fill whole tall row, shrink to your natural height as defined by other code*/
   max-width: 900px;
   justify-self: center;
+  margin-top: 0.5rem;
 }
 
 .search-bar:hover{
