@@ -241,7 +241,10 @@ body {
   font-weight: 700;
   font-size: 14px;
   color: #ffffff;
-  background-color: #DECFAF;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  margin-top: 1.5rem;
 }
 
 .side-bar h1 {
@@ -267,7 +270,9 @@ body {
 
 .side-bar-links li {
   width: 100%;
-  background-color: #CBBA98;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
   border-radius: 12px;
   padding: 0.25rem 0.5rem 0.25rem 0rem;
   transition: transform 0.25s ease;
@@ -303,7 +308,7 @@ body {
 
 .beach-location {
   font-size: 12px;
-  color: #9ca3af;
+  color: #f3f4f6;
   font-weight: 400;
   white-space: nowrap;
 }
@@ -328,12 +333,12 @@ body {
 }
 
 .positive {
-  color: #4ade80;
+  color: #00ff66;
   font-weight: 700;
 }
 
 .negative {
-  color: #f87171;
+  color: #ff3333;
   font-weight: 700;
 }
 
@@ -344,7 +349,7 @@ body {
   align-self: center;
   justify-self: center; /*centre horizontally*/
   font-size: 64px;
-  color: #005477;
+  color: #7dd3fc;
   white-space: nowrap; /*never leaves one line*/
 }
 
@@ -381,8 +386,10 @@ body {
   align-items: center; /* vertically centres all items relating to the search bar in the search bar*/
   padding: var(--padding); /*calls padding shortcut*/
   border-radius: 28px;
-  background: #f6f6f6; /*background colour for search bar container*/
-  transition: 0.25s; /*smooths out colour change on hover*/
+  background-color: rgba(255, 255, 255, 0.15);/*background colour for search bar container*/
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px); 
+  transition: 0.25s ease; /*smooths out colour change on hover*/
   box-sizing: border-box; /*causes browser to include padding in calculations so perfectly fits grid lines*/
   align-self: start; /*do not stretch vertically to fill whole tall row, shrink to your natural height as defined by other code*/
   max-width: 900px;
@@ -390,13 +397,13 @@ body {
 }
 
 .search-bar:hover{
-  background: #f1f1f1;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .search-bar-input {
   font-size: 16px;
   font-family: 'Lexend', sans-serif;
-  color: #333333;
+  color: #f3f4f6;
   margin-left: var(--padding);
   outline: none; /*removes outline when you click on input box*/
   border: none; /*removes border line around input field*/
@@ -406,7 +413,7 @@ body {
 
 .search-bar-input::placeholder,
 .search-bar-icon {
-  color: rgba(0, 0, 0, 0.5);
+  color: #f3f4f6;
 }
 
 .typed-text-display {
