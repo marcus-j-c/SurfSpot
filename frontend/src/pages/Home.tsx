@@ -18,7 +18,6 @@ export default function Home() {
       <CentreHeader/>
       <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
       <SideBar/>
-      <div className = "box-6">Box 6</div>
       <div className = "typed-text-display">
         <p>Current state of typedText: {typedText}</p>
         <p>Currently showing forecast for: {selectedBeach}</p>

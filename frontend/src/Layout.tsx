@@ -24,7 +24,7 @@ export default function Layout() {
                     </g>
                 </svg>
             </div>
-            <div className="title-and-logo"><img src ="../favicon.svg"></img>SurfSpot</div> {/*temporary classes for grid*/}
+            <div className="title-and-logo"><img src ="../favicon.svg"></img>SurfSpot</div>
             <AccountButtons/>
             <NavBar/>
             <main className = "main-content">
