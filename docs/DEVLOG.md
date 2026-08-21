@@ -118,3 +118,5 @@ Getting started on generic beach pages.
 I've begun really working on the beach pages, have the header working just working on getting a per beach rating.
 
 Every beach now has as a fake rating doing this as if i recieved a real array from a database.
+
+Every beach page now has the css for the stats box setup.

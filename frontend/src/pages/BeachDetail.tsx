@@ -1,6 +1,7 @@
 import "../App.css";
 import {useParams} from "react-router-dom";
 import { BeachHeader } from "../components/BeachHeader";
+import BeachStats from "../components/BeachStats";
 
 const beachData: [string, number][] = [
   ["Unknown beach", 0],
@@ -48,7 +49,7 @@ export default function BeachDetail() {
     <div className = "beach-page-grid">
       <div className = "beach-header">
         <BeachHeader beachName = {getBeachName(currentBeach)} beachRating = {getBeachRating(currentBeach)}/>
-      </div>
+      </div><BeachStats/>
     </div>
   );
 }
