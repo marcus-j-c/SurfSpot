@@ -35,7 +35,7 @@ body {
   width: 100%;
   height: 100%;
   grid-template-areas:
-  "side-bar centre-header centre-header centre-header box-6"
+  "side-bar centre-header centre-header centre-header ."
   "side-bar search-bar search-bar search-bar typed-text-display";
 }
 
@@ -46,14 +46,29 @@ body {
   width: 100%;
   height: 100%;
   grid-template-areas:
-  "box-6 beach-header beach-header beach-header box-6"
-  "box-6 stats-box stats-box stats-box box-6"
-  "box-6 stats-box stats-box stats-box box-6"
-  "box-6 why-rating why-rating why-rating box-6"
-  "box-6 good-stuff good-stuff good-stuff box-6"
-  "box-6 bad-stuff bad-stuff bad-stuff box-6";
+  ". beach-header beach-header beach-header ."
+  ". stats-box stats-box stats-box ."
+  ". stats-box stats-box stats-box ."
+  ". why-rating why-rating why-rating ."
+  ". good-stuff good-stuff good-stuff ."
+  ". bad-stuff bad-stuff bad-stuff .";
 
 }
+
+.beach-header {
+  grid-area: beach-header;
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  justify-self: center; /*centre horizontally*/
+  font-size: 64px;
+  color: #7dd3fc;
+  white-space: nowrap; /*never leaves one line*/
+}
+
+.beach-rating {
+  color: #f97316;
+}
+
 .wave-top-header {
   grid-row: 1;
   grid-column: 1 / -1; /*spans all columns*/
@@ -388,11 +403,6 @@ body {
   0% {opacity: 1;}
   50% {opacity: 0;}
   100% {opacity: 1;}
-}
-
-.box-6 { 
-  grid-area: box-6; 
-  color: #f3f4f6;
 }
 
 .search-bar {

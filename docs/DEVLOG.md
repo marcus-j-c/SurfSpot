@@ -113,3 +113,6 @@ Next goal is to find someway to blend that header line into my background.
 Close to sorting out the positioning of seachbar and center header.
 
 Getting started on generic beach pages.
+
+## Day 10
+I've begun really working on the beach pages, have the header working just working on getting a per beach rating.
