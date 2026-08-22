@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../App.css";
 import {ForecastCard} from '../components/ForecastCard';
 import {SearchBar} from '../components/SearchBar';
@@ -13,6 +13,12 @@ export default function Home() {
   const handleType = (typedText: string) => {
     setTypedText(typedText);
   };
+  useEffect(() => {
+    document.body.style.overflow = "hidden"; // Lock scroll on Home
+    return () => {
+      document.body.style.overflow = "auto";  // Re-enable scroll when leaving Home
+    };
+  }, []);
   return (
     <div className="home-grid">
       <CentreHeader/>

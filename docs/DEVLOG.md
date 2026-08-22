@@ -120,3 +120,10 @@ I've begun really working on the beach pages, have the header working just worki
 Every beach now has as a fake rating doing this as if i recieved a real array from a database.
 
 Every beach page now has the css for the stats box setup.
+
+## Day 11
+Technically gone backwards bc i have removed my hardcoded data and instead have started creating a fake backend json as this will make my next stage easier, linking up the back and front end. So it will be worth it in the end as it means i will end up deleting less code.
+
+Added a nice glow animation to my stats table on the beach pages also, did this before purging the fake data and hence the beach pages no longer work as the fake backend is still a work in progress.
+
+Made it so only the homepage doesnt scroll every other page can, this is useful bc i need my beach pages to scroll.
