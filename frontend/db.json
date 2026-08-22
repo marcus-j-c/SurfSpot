@@ -1,0 +1,15 @@
+{
+  "beaches": [
+    { "id": 1, "name": "Unknown Beach", "rating": 0 },
+    { "id": 2, "name": "Bonzai Pipeline", "rating": 8.6 },
+    { "id": 3, "name": "Bells Beach", "rating": 6.1 },
+    { "id": 4, "name": "Jeffreys Bay", "rating": 9.4 },
+    { "id": 5, "name": "Teahupo'o", "rating": 7.8 },
+    { "id": 6, "name": "Supertubos", "rating": 3.5 },
+    { "id": 7, "name": "Nazaré", "rating": 9.1 },
+    { "id": 8, "name": "Uluwatu", "rating": 5.3 },
+    { "id": 9, "name": "Gold Coast", "rating": 8.0 },
+    { "id": 10, "name": "Mavericks", "rating": 2.7 },
+    { "id": 11, "name": "Hossegor", "rating": 6.9 }
+  ]
+}

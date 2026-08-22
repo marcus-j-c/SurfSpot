@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path = "/" element = {<Home/>}/>
-          <Route path = "spot/:beachName" element = {<BeachDetail/>}/>
+          <Route path = "spot/:beachName" element = {<BeachDetail/>}/> //anything that comes after spot is saved as a parameter named beachName and the element bit means make this parameter available to the beach component.
         </Route>
       </Routes>
     </BrowserRouter>
