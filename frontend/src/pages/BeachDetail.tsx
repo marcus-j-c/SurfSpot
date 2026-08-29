@@ -2,7 +2,7 @@ import "../App.css";
 import {useParams} from "react-router-dom";
 import {BeachHeader} from "../components/BeachHeader";
 import BeachStats from "../components/BeachStats";
-import {usestate, useEffect} from "react";
+import {useState, useEffect} from "react";
 
 interface BeachData {
   id: number;
@@ -16,12 +16,31 @@ export default function BeachDetail() {
   const [isLoading, setIsLoading] = useState<boolean>(true); //waits for the data to be fetched before rendering the page, initially set to true, while true can show a placeholder like Loading...
   const cleanBeachName = (beachName?.replace(/-/g, " ").replace(/\b\w/g, char => char.toUpperCase()) ?? "Unknown Beach"); //replace hyphens with spaces, and capitalise the first letter of each word to match the beach names in the data, and falls back to "Unknown Beach".
   const url = `http://localhost:5000/beaches?name=${encodeURIComponent(cleanBeachName)}`; //construct the url so go to /beaches which accesses the json packet named beaches the search for the entry where the name matches cleanBeachName.
-  
+  useEffect(() => {
+    fetch(url) //fetch the data from the url
+    .then((response) => response.json()) //parse the response as json
+    .then ((data) => {
+      if (data.length > 0) { //check if the data array has any entries
+        setCurrentBeach(data[0]); //if it does, set the currentBeach state to the first entry in the data array
+      }
+      else {
+        setCurrentBeach(null); //if it doesn't, set the currentBeach state to null
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching beach data:", error); //log any errors that occur during the fetch
+    })
+    .finally(() => {
+      setIsLoading(false); //set isLoading to false once the fetch is complete, regardless of success or failure
+    });
+  }, [url]);
+
   return (
     <div className = "beach-page-grid">
       <div className = "beach-header">
-        <BeachHeader beachName = {getBeachName(currentBeach)} beachRating = {getBeachRating(currentBeach)}/>
-      </div><BeachStats/>
+        {isLoading === true ? <p>Loading...</p> : <BeachHeader beachName = {currentBeach?.name ?? "Unknown Beach"} beachRating = {currentBeach?.rating ?? 0}/>}
+      </div>
+      <BeachStats/>
     </div>
   );
 }
