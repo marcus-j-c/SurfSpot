@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "../App.css";
-import {ForecastCard} from '../components/ForecastCard';
 import {SearchBar} from '../components/SearchBar';
 import {SideBar} from "../components/SideBar";
 import {CentreHeader} from "../components/CentreHeader";
@@ -16,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Lock scroll on Home
     return () => {
-      document.body.style.overflow = "auto";  // Re-enable scroll when leaving Home
+      document.body.style.overflow = "auto"; // Re-enable scroll when leaving Home
     };
   }, []);
   return (
