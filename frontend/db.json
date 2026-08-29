@@ -1,15 +1,136 @@
 {
   "beaches": [
-    { "id": 1, "name": "Unknown Beach", "rating": 0 },
-    { "id": 2, "name": "Bonzai Pipeline", "rating": 8.6 },
-    { "id": 3, "name": "Bells Beach", "rating": 6.1 },
-    { "id": 4, "name": "Jeffreys Bay", "rating": 9.4 },
-    { "id": 5, "name": "Teahupo'o", "rating": 7.8 },
-    { "id": 6, "name": "Supertubos", "rating": 3.5 },
-    { "id": 7, "name": "Nazaré", "rating": 9.1 },
-    { "id": 8, "name": "Uluwatu", "rating": 5.3 },
-    { "id": 9, "name": "Gold Coast", "rating": 8.0 },
-    { "id": 10, "name": "Mavericks", "rating": 2.7 },
-    { "id": 11, "name": "Hossegor", "rating": 6.9 }
+    {
+      "id": 1,
+      "name": "Unknown Beach",
+      "rating": 0,
+      "waveHeight": 0.5,
+      "wavePeriod": 8,
+      "windSpeed": 5.0,
+      "windDirection": "N",
+      "tide": 0.5,
+      "waterTemp": 18.0,
+      "weather": "Calm"
+    },
+    {
+      "id": 2,
+      "name": "Bonzai Pipeline",
+      "rating": 8.6,
+      "waveHeight": 3.8,
+      "wavePeriod": 16,
+      "windSpeed": 11.5,
+      "windDirection": "ENE",
+      "tide": 0.9,
+      "waterTemp": 26.4,
+      "weather": "Mostly Sunny"
+    },
+    {
+      "id": 3,
+      "name": "Bells Beach",
+      "rating": 6.1,
+      "waveHeight": 2.3,
+      "wavePeriod": 14,
+      "windSpeed": 18.0,
+      "windDirection": "W",
+      "tide": 1.2,
+      "waterTemp": 13.8,
+      "weather": "Sunny"
+    },
+    {
+      "id": 4,
+      "name": "Jeffreys Bay",
+      "rating": 9.4,
+      "waveHeight": 1.6,
+      "wavePeriod": 12,
+      "windSpeed": 14.5,
+      "windDirection": "SW",
+      "tide": 1.8,
+      "waterTemp": 17.5,
+      "weather": "Partly Cloudy"
+    },
+    {
+      "id": 5,
+      "name": "Teahupo'o",
+      "rating": 7.8,
+      "waveHeight": 4.5,
+      "wavePeriod": 17,
+      "windSpeed": 9.0,
+      "windDirection": "ESE",
+      "tide": 0.4,
+      "waterTemp": 27.8,
+      "weather": "Scattered Showers"
+    },
+    {
+      "id": 6,
+      "name": "Supertubos",
+      "rating": 3.5,
+      "waveHeight": 2.1,
+      "wavePeriod": 11,
+      "windSpeed": 16.2,
+      "windDirection": "NNW",
+      "tide": 2.1,
+      "waterTemp": 18.2,
+      "weather": "Mostly Sunny"
+    },
+    {
+      "id": 7,
+      "name": "Nazaré",
+      "rating": 9.1,
+      "waveHeight": 8.5,
+      "wavePeriod": 18,
+      "windSpeed": 22.0,
+      "windDirection": "N",
+      "tide": 2.4,
+      "waterTemp": 16.0,
+      "weather": "Overcast"
+    },
+    {
+      "id": 8,
+      "name": "Uluwatu",
+      "rating": 5.3,
+      "waveHeight": 2.7,
+      "wavePeriod": 15,
+      "windSpeed": 12.0,
+      "windDirection": "SE",
+      "tide": 1.5,
+      "waterTemp": 28.5,
+      "weather": "Clear"
+    },
+    {
+      "id": 9,
+      "name": "Gold Coast",
+      "rating": 8.0,
+      "waveHeight": 1.8,
+      "wavePeriod": 13,
+      "windSpeed": 10.5,
+      "windDirection": "SSE",
+      "tide": 1.3,
+      "waterTemp": 22.1,
+      "weather": "Sunny"
+    },
+    {
+      "id": 10,
+      "name": "Mavericks",
+      "rating": 2.7,
+      "waveHeight": 6.2,
+      "wavePeriod": 16,
+      "windSpeed": 15.0,
+      "windDirection": "NW",
+      "tide": 1.6,
+      "waterTemp": 11.5,
+      "weather": "Foggy"
+    },
+    {
+      "id": 11,
+      "name": "Hossegor",
+      "rating": 6.9,
+      "waveHeight": 2.0,
+      "wavePeriod": 12,
+      "windSpeed": 8.5,
+      "windDirection": "E",
+      "tide": 2.8,
+      "waterTemp": 20.2,
+      "weather": "Sunny"
+    }
   ]
 }

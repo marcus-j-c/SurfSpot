@@ -8,6 +8,13 @@ interface BeachData {
   id: number;
   name: string;
   rating: number;
+  waveHeight: number;
+  wavePeriod: number;
+  windSpeed: number;
+  windDirection: string;
+  tide: number;
+  waterTemp: number;
+  weather: string;
 }
 
 export default function BeachDetail() {
@@ -40,7 +47,7 @@ export default function BeachDetail() {
       <div className = "beach-header">
         {isLoading === true ? <p>Loading...</p> : <BeachHeader beachName = {currentBeach?.name ?? "Unknown Beach"} beachRating = {currentBeach?.rating ?? 0}/>}
       </div>
-      <BeachStats/>
+      <BeachStats waveHeight={currentBeach?.waveHeight ?? 0} wavePeriod={currentBeach?.wavePeriod ?? 0} windSpeed={currentBeach?.windSpeed ?? 0} windDirection={currentBeach?.windDirection ?? "Unknown"} tide={currentBeach?.tide ?? 0} waterTemp={currentBeach?.waterTemp ?? 0} weather={currentBeach?.weather ?? "Unknown"}/>
     </div>
   );
 }
