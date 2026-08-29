@@ -127,3 +127,6 @@ Technically gone backwards bc i have removed my hardcoded data and instead have 
 Added a nice glow animation to my stats table on the beach pages also, did this before purging the fake data and hence the beach pages no longer work as the fake backend is still a work in progress.
 
 Made it so only the homepage doesnt scroll every other page can, this is useful bc i need my beach pages to scroll.
+
+## Day 12
+Back to where i was before but have reached it using db.json, and hence this will make connecting up the backend way easier.
