@@ -130,3 +130,5 @@ Made it so only the homepage doesnt scroll every other page can, this is useful 
 
 ## Day 12
 Back to where i was before but have reached it using db.json, and hence this will make connecting up the backend way easier.
+
+Now added fake beach stats to db.json and have also passed them as props to beach stats, everything is coming together just gonna fix the CSS styling, then work on the rest of the beach page.
