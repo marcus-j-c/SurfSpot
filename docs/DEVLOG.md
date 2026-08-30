@@ -140,3 +140,5 @@ Scrollbar hidden.
 Stats box fully styled moving onto the why the rating has been given.
 
 Why rating added and fully styled.
+
+Fake good stuff all added and styled to be honest the styling is a lot of copy and pasting of my previous styling at this point to keep things consistent which is nice.

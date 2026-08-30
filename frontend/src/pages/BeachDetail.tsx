@@ -4,6 +4,7 @@ import {BeachHeader} from "../components/BeachHeader";
 import BeachStats from "../components/BeachStats";
 import {useState, useEffect} from "react";
 import WhyRating from "../components/WhyRating";
+import GoodStuff from "../components/GoodStuff";
 
 interface BeachData {
   id: number;
@@ -17,6 +18,7 @@ interface BeachData {
   waterTemp: number;
   weather: string;
   reasoning: string;
+  goodStuff: string;
 }
 
 export default function BeachDetail() {
@@ -51,6 +53,7 @@ export default function BeachDetail() {
       </div>
       <BeachStats waveHeight={currentBeach?.waveHeight ?? 0} wavePeriod={currentBeach?.wavePeriod ?? 0} windSpeed={currentBeach?.windSpeed ?? 0} windDirection={currentBeach?.windDirection ?? "Unknown"} tide={currentBeach?.tide ?? 0} waterTemp={currentBeach?.waterTemp ?? 0} weather={currentBeach?.weather ?? "Unknown"}/>
       <WhyRating rating={currentBeach?.rating ?? 0} reasoning={currentBeach?.reasoning ?? "No Reasoning Available"}/>
+      <GoodStuff goodStuff={currentBeach?.goodStuff ?? "N/A"}/>
     </div>
   );
 }

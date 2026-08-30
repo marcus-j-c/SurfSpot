@@ -5,7 +5,7 @@ interface WhyRatingProps {
     rating: number;
 }
 
-export default function WhyRating({ reasoning, rating }: WhyRatingProps) {
+export default function WhyRating({reasoning, rating}: WhyRatingProps) {
   return (
     <div className="why-rating">
       <h2>

@@ -11,7 +11,8 @@
       "tide": 0.0,
       "waterTemp": 0.0,
       "weather": "N/A",
-      "reasoning": "No Reasoning Available"
+      "reasoning": "No Reasoning Available",
+      "goodStuff": "N/A"
     },
     {
       "id": 2,
@@ -24,7 +25,8 @@
       "tide": 0.9,
       "waterTemp": 26.4,
       "weather": "Mostly Sunny",
-      "reasoning": "Large 3.8m swell with a long 16s period combined with light offshore winds produces exceptional, clean barrel conditions."
+      "reasoning": "Large 3.8m swell with a long 16s period combined with light offshore winds produces exceptional, clean barrel conditions.",
+      "goodStuff": "Warm 26.4°C water, long 16s period, and clean barrel potential."
     },
     {
       "id": 3,
@@ -37,7 +39,8 @@
       "tide": 1.2,
       "waterTemp": 13.8,
       "weather": "Sunny",
-      "reasoning": "Solid swell size and 14s period, but higher wind speeds create surface chop in cool water."
+      "reasoning": "Solid swell size and 14s period, but higher wind speeds create surface chop in cool water.",
+      "goodStuff": "Sunny weather and solid 2.3m swell height."
     },
     {
       "id": 4,
@@ -50,7 +53,8 @@
       "tide": 1.8,
       "waterTemp": 17.5,
       "weather": "Partly Cloudy",
-      "reasoning": "Fun 1.6m wave height with a 12s period and favorable winds offering clean, lining-up point break sections."
+      "reasoning": "Fun 1.6m wave height with a 12s period and favorable winds offering clean, lining-up point break sections.",
+      "goodStuff": "Favorable SW winds and clean point break shape."
     },
     {
       "id": 5,
@@ -63,7 +67,8 @@
       "tide": 0.4,
       "waterTemp": 27.8,
       "weather": "Scattered Showers",
-      "reasoning": "Heavy 4.5m swell paired with a long 17s period and light winds creates world-class, powerful reef barrels."
+      "reasoning": "Heavy 4.5m swell paired with a long 17s period and light winds creates world-class, powerful reef barrels.",
+      "goodStuff": "Tropical 27.8°C water, light winds, and powerful long-period swell."
     },
     {
       "id": 6,
@@ -76,7 +81,8 @@
       "tide": 2.1,
       "waterTemp": 18.2,
       "weather": "Mostly Sunny",
-      "reasoning": "Decent wave height is hampered by a shorter 11s period, high tide, and strong onshore wind speeds."
+      "reasoning": "Decent wave height is hampered by a shorter 11s period, high tide, and strong onshore wind speeds.",
+      "goodStuff": "Mostly sunny skies."
     },
     {
       "id": 7,
@@ -89,7 +95,8 @@
       "tide": 2.4,
       "waterTemp": 16.0,
       "weather": "Overcast",
-      "reasoning": "Massive big-wave swell with an 18s period provides extreme wave energy, despite stronger 22-knot winds."
+      "reasoning": "Massive big-wave swell with an 18s period provides extreme wave energy, despite stronger 22-knot winds.",
+      "goodStuff": "Massive big-wave energy and an 18s swell period."
     },
     {
       "id": 8,
@@ -102,7 +109,8 @@
       "tide": 1.5,
       "waterTemp": 28.5,
       "weather": "Clear",
-      "reasoning": "Solid 2.7m swell with a long 15s period and warm water delivers prime, peeling reef break waves."
+      "reasoning": "Solid 2.7m swell with a long 15s period and warm water delivers prime, peeling reef break waves.",
+      "goodStuff": "Clear skies, 28.5°C water temp, and clean 15s swell period."
     },
     {
       "id": 9,
@@ -115,7 +123,8 @@
       "tide": 1.3,
       "waterTemp": 22.1,
       "weather": "Sunny",
-      "reasoning": "Optimal 1.8m wave height, 13s period, and light winds create highly consistent and clean sandbar waves."
+      "reasoning": "Optimal 1.8m wave height, 13s period, and light winds create highly consistent and clean sandbar waves.",
+      "goodStuff": "Sunny weather, comfortable water, and manageable light winds."
     },
     {
       "id": 10,
@@ -128,7 +137,8 @@
       "tide": 1.6,
       "waterTemp": 11.5,
       "weather": "Foggy",
-      "reasoning": "Heavy 6.2m swell energy is severely degraded by low-visibility fog and cold, onshore chop."
+      "reasoning": "Heavy 6.2m swell energy is severely degraded by low-visibility fog and cold, onshore chop.",
+      "goodStuff": "Heavy raw swell height."
     },
     {
       "id": 11,
@@ -141,7 +151,8 @@
       "tide": 2.8,
       "waterTemp": 20.2,
       "weather": "Sunny",
-      "reasoning": "Light offshore East winds and a clean 2.0m swell yield quality beach break peaks, tempered slightly by high tide."
+      "reasoning": "Light offshore East winds and a clean 2.0m swell yield quality beach break peaks, tempered slightly by high tide.",
+      "goodStuff": "Sunny skies, light East offshore winds, and pleasant 20.2°C water."
     }
   ]
 }
