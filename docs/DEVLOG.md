@@ -138,3 +138,5 @@ Scrollbar hidden.
 
 ## Day 13
 Stats box fully styled moving onto the why the rating has been given.
+
+Why rating added and fully styled.

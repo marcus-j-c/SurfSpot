@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {BeachHeader} from "../components/BeachHeader";
 import BeachStats from "../components/BeachStats";
 import {useState, useEffect} from "react";
+import WhyRating from "../components/WhyRating";
 
 interface BeachData {
   id: number;
@@ -15,6 +16,7 @@ interface BeachData {
   tide: number;
   waterTemp: number;
   weather: string;
+  reasoning: string;
 }
 
 export default function BeachDetail() {
@@ -48,6 +50,7 @@ export default function BeachDetail() {
         {isLoading === true ? <p>Loading...</p> : <BeachHeader beachName = {currentBeach?.name ?? "Unknown Beach"} beachRating = {currentBeach?.rating ?? 0}/>}
       </div>
       <BeachStats waveHeight={currentBeach?.waveHeight ?? 0} wavePeriod={currentBeach?.wavePeriod ?? 0} windSpeed={currentBeach?.windSpeed ?? 0} windDirection={currentBeach?.windDirection ?? "Unknown"} tide={currentBeach?.tide ?? 0} waterTemp={currentBeach?.waterTemp ?? 0} weather={currentBeach?.weather ?? "Unknown"}/>
+      <WhyRating rating={currentBeach?.rating ?? 0} reasoning={currentBeach?.reasoning ?? "No Reasoning Available"}/>
     </div>
   );
 }
