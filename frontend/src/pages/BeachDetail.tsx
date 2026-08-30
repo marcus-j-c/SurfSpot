@@ -5,6 +5,7 @@ import BeachStats from "../components/BeachStats";
 import {useState, useEffect} from "react";
 import WhyRating from "../components/WhyRating";
 import GoodStuff from "../components/GoodStuff";
+import BadStuff from "../components/BadStuff";
 
 interface BeachData {
   id: number;
@@ -19,13 +20,14 @@ interface BeachData {
   weather: string;
   reasoning: string;
   goodStuff: string;
+  badStuff: string;
 }
 
 export default function BeachDetail() {
   const {beachName} = useParams<{beachName: string}>(); //save the recieved parameter as a variable named beachName
   const [currentBeach, setCurrentBeach] = useState<BeachData | null>(null); //state variable to hold the current beach data, can either hold a valid beach data object or be null.
   const [isLoading, setIsLoading] = useState<boolean>(true); //waits for the data to be fetched before rendering the page, initially set to true, while true can show a placeholder like Loading...
-  const cleanBeachName = (beachName?.replace(/-/g, " ").replace(/\b\w/g, char => char.toUpperCase()) ?? "Unknown Beach"); //replace hyphens with spaces, and capitalise the first letter of each word to match the beach names in the data, and falls back to "Unknown Beach".
+  const cleanBeachName = (beachName?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")) ?? "Unknown Beach"; //split the beach name by hyphens, capitalize the first letter of each word, and join them back with spaces, and falls back to "Unknown Beach".
   const url = `http://localhost:5000/beaches?name=${encodeURIComponent(cleanBeachName)}`; //construct the url so go to /beaches which accesses the json packet named beaches the search for the entry where the name matches cleanBeachName.
   useEffect(() => {
     fetch(url) //fetch the data from the url
@@ -54,6 +56,7 @@ export default function BeachDetail() {
       <BeachStats waveHeight={currentBeach?.waveHeight ?? 0} wavePeriod={currentBeach?.wavePeriod ?? 0} windSpeed={currentBeach?.windSpeed ?? 0} windDirection={currentBeach?.windDirection ?? "Unknown"} tide={currentBeach?.tide ?? 0} waterTemp={currentBeach?.waterTemp ?? 0} weather={currentBeach?.weather ?? "Unknown"}/>
       <WhyRating rating={currentBeach?.rating ?? 0} reasoning={currentBeach?.reasoning ?? "No Reasoning Available"}/>
       <GoodStuff goodStuff={currentBeach?.goodStuff ?? "N/A"}/>
+      <BadStuff badStuff={currentBeach?.badStuff ?? "N/A"}/>
     </div>
   );
 }
