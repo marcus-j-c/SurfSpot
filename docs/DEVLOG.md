@@ -134,3 +134,7 @@ Back to where i was before but have reached it using db.json, and hence this wil
 Now added fake beach stats to db.json and have also passed them as props to beach stats, everything is coming together just gonna fix the CSS styling, then work on the rest of the beach page.
 
 Scrollbar hidden.
+
+
+## Day 13
+Stats box fully styled moving onto the why the rating has been given.
