@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import {useEffect} from "react";
 import "../App.css";
 import {SearchBar} from '../components/SearchBar';
 import {SideBar} from "../components/SideBar";
 import {CentreHeader} from "../components/CentreHeader";
+import {useNavigate} from "react-router-dom";
 
 export default function Home() {
-  const [selectedBeach, setSelectedBeach] = useState("");
-  const [typedText, setTypedText] = useState("");
+  const navigate = useNavigate();
   const handleSearch = (beachName: string) => {
-    setSelectedBeach(beachName);};
-  const handleType = (typedText: string) => {
-    setTypedText(typedText);
+    const cleanedBeachName = beachName.toLowerCase().replace(/\s+/g, "-");
+    navigate(`/spot/${cleanedBeachName}`);
   };
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Lock scroll on Home
@@ -21,12 +20,8 @@ export default function Home() {
   return (
     <div className="home-grid">
       <CentreHeader/>
-      <SearchBar onSearch = {handleSearch} onType = {handleType} /> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
+      <SearchBar onSearch = {handleSearch}/> {/*the search bar component created here the propert on search is replaced by the handleSearch function from App.tsx*/}
       <SideBar/>
-      <div className = "typed-text-display">
-        <p>Current state of typedText: {typedText}</p>
-        <p>Currently showing forecast for: {selectedBeach}</p>
-      </div>
     </div>
   );
 }

@@ -144,3 +144,14 @@ Why rating added and fully styled.
 Fake good stuff all added and styled to be honest the styling is a lot of copy and pasting of my previous styling at this point to keep things consistent which is nice.
 
 Fake bad stuff all added and styled to be honest the styling is a lot of copy and pasting of my previous styling at this point to keep things consistent which is nice.
+
+## Day 14
+Search bar fully working, can now search for one of the 10 fake beaches and it will take you to the corresponding beach page.
+
+Fixed the beach page overflow issue.
+
+Culled some unused old code, like forecast card, and typed text.
+
+Figured out how to extend the background blur into bottom of the page padding!
+
+Big progress, fake frontend is done, now i can fully connect up the front and back end!!
