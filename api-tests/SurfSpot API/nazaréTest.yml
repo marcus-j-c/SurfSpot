@@ -1,11 +1,15 @@
 info:
-  name: banzaiPipelineTest
+  name: nazaréTest
   type: http
-  seq: 3
+  seq: 8
 
 http:
   method: GET
-  url: "{{baseURL}}/beach/banzai-pipeline"
+  url: "{{baseURL}}/beaches?name=nazaré"
+  params:
+    - name: name
+      value: nazaré
+      type: query
   auth: inherit
 
 settings:
