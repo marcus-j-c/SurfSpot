@@ -157,3 +157,5 @@ Figured out how to extend the background blur into bottom of the page padding!
 Big progress, fake frontend is done, now i can fully connect up the front and back end!!
 
 Move db.json stuff over into the beachcontroller in my backend, ran bruno tests and everything worked beautifully, guess i just gotta connect react up to the backend now!
+
+FRONT AND BACKEND ALL CONNECTED THAT WAS ACTUALLY SO EASY I CANT BELIEVE ITS ACTUALLY CONNECTED!!!
