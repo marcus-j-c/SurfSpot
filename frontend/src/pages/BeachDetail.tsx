@@ -27,9 +27,10 @@ export default function BeachDetail() {
   const {beachName} = useParams<{beachName: string}>(); //save the recieved parameter as a variable named beachName
   const [currentBeach, setCurrentBeach] = useState<BeachData | null>(null); //state variable to hold the current beach data, can either hold a valid beach data object or be null.
   const [isLoading, setIsLoading] = useState<boolean>(true); //waits for the data to be fetched before rendering the page, initially set to true, while true can show a placeholder like Loading...
-  const cleanBeachName = (beachName?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")) ?? "Unknown Beach"; //split the beach name by hyphens, capitalize the first letter of each word, and join them back with spaces, and falls back to "Unknown Beach".
-  const url = `http://localhost:5000/beaches?name=${encodeURIComponent(cleanBeachName)}`; //construct the url so go to /beaches which accesses the json packet named beaches the search for the entry where the name matches cleanBeachName.
-  useEffect(() => {
+  //const cleanBeachName = (beachName?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")) ?? "Unknown Beach"; //split the beach name by hyphens, capitalize the first letter of each word, and join them back with spaces, and falls back to "Unknown Beach". NOW REDUNDANT BC I DO THE CLEANING ON THE BACKEND.
+  //const url = `http://localhost:5000/beaches?name=${encodeURIComponent(cleanBeachName)}`; //construct the url so go to /beaches which accesses the json packet named beaches the search for the entry where the name matches cleanBeachName.
+  const url = `http://localhost:8080/beaches?name=${encodeURIComponent(beachName ?? "")}`; //points to my real backend, and uses raw name cause i do the cleaning on the backend!!!
+  /*useEffect(() => { //FOR THE OLD FAKE BACKEND.
     fetch(url) //fetch the data from the url
     .then((response) => response.json()) //parse the response as json
     .then ((data) => {
@@ -39,6 +40,20 @@ export default function BeachDetail() {
       else {
         setCurrentBeach(null); //if it doesn't, set the currentBeach state to null
       }
+    })
+    .catch((error) => {
+      console.error("Error fetching beach data:", error); //log any errors that occur during the fetch
+    })
+    .finally(() => {
+      setIsLoading(false); //set isLoading to false once the fetch is complete, regardless of success or failure
+    });
+  }, [url]);*/
+
+  useEffect(() => { //FOR THE REAL BACKEND.
+    fetch(url)
+    .then((response) => response.json()) //parse the response as json
+    .then((data: BeachData) => { //the data returned from the backend will be of type BeachData, aka it will match my interface BeachData
+      setCurrentBeach(data);
     })
     .catch((error) => {
       console.error("Error fetching beach data:", error); //log any errors that occur during the fetch
