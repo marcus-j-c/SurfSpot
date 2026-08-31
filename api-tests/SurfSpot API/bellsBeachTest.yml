@@ -5,7 +5,11 @@ info:
 
 http:
   method: GET
-  url: "{{baseURL}}/beach/bells-beach"
+  url: "{{baseURL}}/beaches?name=bells-beach"
+  params:
+    - name: name
+      value: bells-beach
+      type: query
   auth: inherit
 
 settings:

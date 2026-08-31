@@ -1,14 +1,14 @@
 info:
-  name: jeffreysBayTest
+  name: unknownTest
   type: http
-  seq: 5
+  seq: 13
 
 http:
   method: GET
-  url: "{{baseURL}}/beaches?name=jeffreys-bay"
+  url: "{{baseURL}}/beaches?name=gibberish"
   params:
     - name: name
-      value: jeffreys-bay
+      value: gibberish
       type: query
   auth: inherit
 
