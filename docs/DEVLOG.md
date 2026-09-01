@@ -167,3 +167,4 @@ Now ive got the coords ive begun adding the method, to get the beach data, and i
 
 Huge progress, am getting real data for beaches and its working beautifully all i have to do now, is convert weathercode and wind direction into their respective strings, like ENE or mostly sunny!!
  
+Then i can move onto the rating system and the analysis of said conditions and rating.
