@@ -164,3 +164,6 @@ FRONT AND BACKEND ALL CONNECTED THAT WAS ACTUALLY SO EASY I CANT BELIEVE ITS ACT
 Big progress so far, have got my first api requests hopefully working via my coords request method, using open meteo and then if that doesnt work, like open meteo doesnt seem to be able find lots of beaches like bonzai pipeline but you can make way more requests per second, which is why nominatim, which seems to be able to find all these beaches is my fallback.
 
 Now ive got the coords ive begun adding the method, to get the beach data, and ive already added if i couldnt find the coords, just return unknown beach.
+
+Huge progress, am getting real data for beaches and its working beautifully all i have to do now, is convert weathercode and wind direction into their respective strings, like ENE or mostly sunny!!
+ 
