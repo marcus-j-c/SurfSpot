@@ -34,7 +34,7 @@ public class BeachController {
                 return beach;
             }
         }
-        return hardcodedBeaches.get(0); //grab the unknown beach.
+        return getBeachData(coordsRequest(name)); //if the beach is not in my hardcoded list (temporary list), get it from the apis.
     }
 
     private GeocodingInfo coordsRequest(String name) {
@@ -61,6 +61,14 @@ public class BeachController {
         catch (Exception e) {}
         return null; //if everything fails return null.
     }
+
+    private BeachInfo getBeachData(GeocodingInfo geocodingInfo) {
+        if (geocodingInfo == null) {
+            return hardcodedBeaches.get(0); //return the unknown beach.
+        }
+        return null;
+    }
+
     /*@GetMapping("/banzai-pipeline")
     public BeachInfo getBanzaiPipeline() {
         return new BeachInfo(2L, "Bonzai Pipeline", 8.6, 3.8, 16, 11.5, "ENE", 0.9, 26.4, "Mostly Sunny", "Large 3.8m swell with a long 16s period combined with light offshore winds produces exceptional, clean barrel conditions.", "Warm 26.4°C water, long 16s period, and clean barrel potential.", "Heavy 3.8m swell presents severe power and shallow reef hazards.", "2026-08-07T08:00:00Z", "06:08", "19:08");
