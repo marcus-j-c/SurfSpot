@@ -159,3 +159,7 @@ Big progress, fake frontend is done, now i can fully connect up the front and ba
 Move db.json stuff over into the beachcontroller in my backend, ran bruno tests and everything worked beautifully, guess i just gotta connect react up to the backend now!
 
 FRONT AND BACKEND ALL CONNECTED THAT WAS ACTUALLY SO EASY I CANT BELIEVE ITS ACTUALLY CONNECTED!!!
+
+## Day 15
+Big progress so far, have got my first api requests hopefully working via my coords request method, using open meteo and then if that doesnt work, like open meteo doesnt seem to be able find lots of beaches like bonzai pipeline but you can make way more requests per second, which is why nominatim, which seems to be able to find all these beaches is my fallback.
+
