@@ -1,7 +1,9 @@
 package com.surfspot.backend.controllers;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClient;
 
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +12,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/beaches")
 public class BeachController {
+    private final RestClient restClient = RestClient.create(); //create a RestClient instance
     private final List<BeachInfo> hardcodedBeaches = List.of( //hardcoded beaches, same as in my db.json on the frontend.
             new BeachInfo(1L, "Unknown Beach", 0.0, 0.0, 0, 0.0, "N/A", 0.0, 0.0, "N/A", "No Reasoning Available", "N/A", "N/A", "2026-08-07T00:00:00Z", "06:00", "18:00"),
             new BeachInfo(2L, "Bonzai Pipeline", 8.6, 3.8, 16, 11.5, "ENE", 0.9, 26.4, "Mostly Sunny", "Large 3.8m swell with a long 16s period combined with light offshore winds produces exceptional, clean barrel conditions.", "Warm 26.4°C water, long 16s period, and clean barrel potential.", "Heavy 3.8m swell presents severe power and shallow reef hazards.", "2026-08-07T08:00:00Z", "06:08", "19:08"),
@@ -32,6 +35,31 @@ public class BeachController {
             }
         }
         return hardcodedBeaches.get(0); //grab the unknown beach.
+    }
+
+    private GeocodingInfo coordsRequest(String name) {
+        String cleanedName = Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("\\p{M}", "").replace("-", " ").toLowerCase().trim(); //Normalizer.normalize(name, Normalizer.Form.NFD) split the accent mark and the letter its on into 2 characters replaceAll("\\p{M}", "") vaporises all split off accent marks, replace hyphens with spaces, convert to lowercase, and trim whitespaces.
+        GeocodingInfo openMeteoResponse = null;
+        for (int i = 0; i < 3; i++) { //try open meteo to 3 times as it could have just been a network error.
+            try {
+                openMeteoResponse = restClient.get().uri("https://geocoding-api.open-meteo.com/v1/search?name=" + cleanedName).retrieve().body(GeocodingInfo.class); //restClient.get() says go fetch something from the internet, .body(GeocodingInfo.class) puts the result straight into my record.
+                break; //if it works get out of the loop early
+            }
+            catch (Exception e) {} //if it fails, just try again, up to 3 times.
+        }
+        if (openMeteoResponse != null && openMeteoResponse.results() != null && !openMeteoResponse.results().isEmpty()) { //check if the response isnt empty.
+            return openMeteoResponse; // if it isnt return it.
+        }
+        try { //if the response is empty, try nominatim as my backup.
+            BackupGeocodingInfo[] nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + cleanedName + "&format=json").header("User-Agent", "SurfSpot/V1").retrieve().body(BackupGeocodingInfo[].class); //works the same as my open meteo one, just nominatim requires a header
+            if (nominatimResponse != null && nominatimResponse.length > 0) { //check if the response isnt empty.
+                BackupGeocodingInfo firstResult = nominatimResponse[0];
+                GeocodingInfo.BeachCoords coords = new GeocodingInfo.BeachCoords(firstResult.name(), Double.parseDouble(firstResult.lat()), Double.parseDouble(firstResult.lon())); //convert the nominatim response into a geocodinginfo record, damn apis with different formats!!!
+                return new GeocodingInfo(List.of(coords)); //return the geocodinginfo record with the coords in a list.
+            }
+        }
+        catch (Exception e) {}
+        return null; //if everything fails return null.
     }
     /*@GetMapping("/banzai-pipeline")
     public BeachInfo getBanzaiPipeline() {
