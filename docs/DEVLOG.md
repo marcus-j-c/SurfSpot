@@ -179,3 +179,5 @@ Added stripping of suffixes, bc i tried teahupo'o-beach in bruno and it gave me 
 Changed a tiny thing in the CSS of the stats box so the text is always on one line and is always the same size.
 
 Changed the way the pages are named so it follows what the user requested to find, not the api name.
+
+Next have got to calculate a rating, and change which piece of data i grab based of the time of day.
