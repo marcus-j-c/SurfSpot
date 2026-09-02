@@ -4,10 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
 import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:5173") //this allows React to fetch the data from the backend.
@@ -16,7 +13,7 @@ import java.util.stream.Collectors;
 public class BeachController {
     private final RestClient restClient = RestClient.create(); //create a RestClient instance
     private final List<BeachInfo> hardcodedBeaches = List.of( //hardcoded beaches, same as in my db.json on the frontend.
-            new BeachInfo(1L, "Unknown Beach", 0.0, 0.0, 0.0, 0.0, "N/A", 0.0, 0.0, "N/A", "No Reasoning Available", "N/A", "N/A", "2026-08-07T00:00:00Z", "06:00", "18:00"),
+            new BeachInfo(1L, "Unknown Spot", 0.0, 0.0, 0.0, 0.0, "N/A", 0.0, 0.0, "N/A", "No Reasoning Available", "N/A", "N/A", "2026-08-07T00:00:00Z", "06:00", "18:00"),
             new BeachInfo(2L, "Bonzai Pipeline", 8.6, 3.8, 16.0, 11.5, "ENE", 0.9, 26.4, "Mostly Sunny", "Large 3.8m swell with a long 16s period combined with light offshore winds produces exceptional, clean barrel conditions.", "Warm 26.4°C water, long 16s period, and clean barrel potential.", "Heavy 3.8m swell presents severe power and shallow reef hazards.", "2026-08-07T08:00:00Z", "06:08", "19:08"),
             new BeachInfo(3L, "Bells Beach", 6.1, 2.3, 14.0, 18.0, "W", 1.2, 13.8, "Sunny", "Solid swell size and 14s period, but higher wind speeds create surface chop in cool water.", "Sunny weather and solid 2.3m swell height.", "Chilly 13.8°C water temperature and high 18.0-knot winds causing choppy surfaces.", "2026-08-07T10:00:00Z", "07:14", "17:45"),
             new BeachInfo(4L, "Jeffreys Bay", 7.6, 1.6, 12.0, 14.5, "SW", 1.8, 17.5, "Partly Cloudy", "Fun 1.6m wave height with a 12s period and favorable winds offering clean, lining-up point break sections.", "Favorable SW winds and clean point break shape.", "Relatively modest 1.6m wave height and moderate 14.5-knot wind speed.", "2026-08-07T09:00:00Z", "06:52", "17:42"),
@@ -68,12 +65,23 @@ public class BeachController {
     }
 
     private double safeDouble(List<Double> list) {
-        return (list != null && !list.isEmpty() && list.get(0) != null) ? list.get(0) : 0.0; //if the list doesnt exist, is empty or the first element is null, return 0.0, otherwise return the first element.
+        return (list != null && !list.isEmpty() && list.get(0) != null) ? list.get(0) : -1.0; //if the list doesnt exist, is empty or the first element is null, return -1.0, otherwise return the first element.
+    }
+
+    private String windDirectionMap(int windDirection) {
+        String[] directions = {"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};
+        int index = (int) Math.round(((double) windDirection % 360) / 22.5) % 16; //convert the wind direction in degrees to an index for the directions array
+        return directions[index];
+    }
+    private String weatherCodeMap(int weatherCode) { //using a map
+        Map<Integer, String> weatherCodes = Map.ofEntries(Map.entry(0,"Clear sky"),Map.entry(1,"Mainly clear"),Map.entry(2,"Partly cloudy"),Map.entry(3,"Overcast"),Map.entry(45,"Fog"),Map.entry(48,"Depositing rime fog"),Map.entry(51,"Drizzle: Light intensity"),Map.entry(53,"Drizzle: Moderate intensity"),Map.entry(55,"Drizzle: Dense intensity"),Map.entry(56,"Freezing Drizzle: Light intensity"),Map.entry(57,"Freezing Drizzle: Dense intensity"),Map.entry(61,"Rain: Slight intensity"),Map.entry(63,"Rain: Moderate intensity"),Map.entry(65,"Rain: Heavy intensity"),Map.entry(66,"Freezing Rain: Light intensity"),Map.entry(67,"Freezing Rain: Heavy intensity"),Map.entry(71,"Snow fall: Slight intensity"),Map.entry(73,"Snow fall: Moderate intensity"),Map.entry(75,"Snow fall: Heavy intensity"),Map.entry(77,"Snow grains"),Map.entry(80,"Rain showers: Slight intensity"),Map.entry(81,"Rain showers: Moderate intensity"),Map.entry(82,"Rain showers: Violent intensity"),Map.entry(85,"Snow showers: Slight intensity"),Map.entry(86,"Snow showers: Heavy intensity"),Map.entry(95,"Thunderstorm: Slight or moderate"),Map.entry(96,"Thunderstorm with slight hail"),Map.entry(99,"Thunderstorm with heavy hail"));
+        return weatherCodes.getOrDefault(weatherCode, "N/A"); //return the weather code description
+
     }
 
     private BeachInfo getBeachData(GeocodingInfo geocodingInfo) {
         if (geocodingInfo == null || geocodingInfo.results() == null || geocodingInfo.results().isEmpty()) { //check if the geocoding info is null or empty
-            return hardcodedBeaches.get(0); //return the unknown beach.
+            return hardcodedBeaches.get(0); //return the unknown spot.
         }
         MarineInfo marineInfo = null;
         ForecastInfo forecastInfo = null;
@@ -95,8 +103,10 @@ public class BeachController {
             }
         }
         if (marineInfo != null && marineInfo.hourly() != null && marineInfo.hourly().wave_height().isEmpty() == false && forecastInfo != null && forecastInfo.hourly() != null && forecastInfo.hourly().temperature_2m().isEmpty() == false && forecastInfo.daily() != null && forecastInfo.daily().sunset().isEmpty() == false) { //boring null checks
-            return new BeachInfo(null, geocodingInfo.results().get(0).name(), 0.0, safeDouble(marineInfo.hourly().wave_height()), safeDouble(marineInfo.hourly().wave_period()), safeDouble(forecastInfo.hourly().wind_speed_10m()), "N/A", 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature()), "N/A", "No Reasoning Available", "N/A", "N/A", marineInfo.hourly().time().get(0), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0)
-            );
+            if (safeDouble(marineInfo.hourly().wave_height()) == -1.0 || safeDouble(marineInfo.hourly().wave_period()) == -1.0 || safeDouble(forecastInfo.hourly().wind_speed_10m()) == -1.0 || safeDouble(marineInfo.hourly().sea_surface_temperature()) == -1.0) { //if any of the values are 0, return the unknown spot.
+                return hardcodedBeaches.get(0);
+            }
+            return new BeachInfo(null, geocodingInfo.results().get(0).name(), 0.0, safeDouble(marineInfo.hourly().wave_height()), safeDouble(marineInfo.hourly().wave_period()), safeDouble(forecastInfo.hourly().wind_speed_10m()), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(0)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature()), weatherCodeMap(forecastInfo.hourly().weathercode().get(0)), "No Reasoning Available", "N/A", "N/A", marineInfo.hourly().time().get(0), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
         }
         return hardcodedBeaches.get(0);
     }
