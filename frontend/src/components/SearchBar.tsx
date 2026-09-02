@@ -17,7 +17,7 @@ export function SearchBar(props: SearchBarProps) {
         <>
         <form className = "search-bar" onSubmit = {handleSearch}>
             <span className = "search-bar-icon material-symbols-outlined">search</span>
-            <input className = "search-bar-input" name = "beachName" type = "text" placeholder = "Enter a beach name..."/>
+            <input className = "search-bar-input" name = "beachName" type = "text" placeholder = "Enter a beach name..." autoComplete = "off"/>
         </form>
         </>
     );

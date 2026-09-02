@@ -145,19 +145,4 @@ public class BeachController {
         }
         return hardcodedBeaches.get(0);
     }
-
-    /*@GetMapping("/banzai-pipeline")
-    public BeachInfo getBanzaiPipeline() {
-        return new BeachInfo(2L, "Bonzai Pipeline", 8.6, 3.8, 16, 11.5, "ENE", 0.9, 26.4, "Mostly Sunny", "Large 3.8m swell with a long 16s period combined with light offshore winds produces exceptional, clean barrel conditions.", "Warm 26.4°C water, long 16s period, and clean barrel potential.", "Heavy 3.8m swell presents severe power and shallow reef hazards.", "2026-08-07T08:00:00Z", "06:08", "19:08");
-    }
-
-    @GetMapping("/bells-beach")
-    public BeachInfo getBellsBeach() {
-        return new BeachInfo(3L, "Bells Beach", 6.1, 2.3, 14, 18.0, "W", 1.2, 13.8, "Sunny", "Solid swell size and 14s period, but higher wind speeds create surface chop in cool water.", "Sunny weather and solid 2.3m swell height.", "Chilly 13.8°C water temperature and high 18.0-knot winds causing choppy surfaces.", "2026-08-07T10:00:00Z", "07:14", "17:45");
-    }
-
-    @GetMapping("/jeffreys-bay")
-    public BeachInfo getJeffreysBay() {
-        return new BeachInfo(4L, "Jeffreys Bay", 7.6, 1.6, 12, 14.5, "SW", 1.8, 17.5, "Partly Cloudy", "Fun 1.6m wave height with a 12s period and favorable winds offering clean, lining-up point break sections.", "Favorable SW winds and clean point break shape.", "Relatively modest 1.6m wave height and moderate 14.5-knot wind speed.", "2026-08-07T09:00:00Z", "06:52", "17:42");
-    }*/
 }
