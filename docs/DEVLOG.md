@@ -181,3 +181,5 @@ Changed a tiny thing in the CSS of the stats box so the text is always on one li
 Changed the way the pages are named so it follows what the user requested to find, not the api name.
 
 Next have got to calculate a rating, and change which piece of data i grab based of the time of day.
+
+Now grabs the correct data based off the current time.
