@@ -171,3 +171,9 @@ Then i can move onto the rating system and the analysis of said conditions and r
 
 ## Day 16
 Created maps to convert weathercode and wind direction into their respective strings, and also made it so that safe double returns a -1 and if that -1 is read, then it knows to return unknown beach.
+
+Added logging
+
+Added stripping of suffixes, bc i tried teahupo'o-beach in bruno and it gave me unknown beach but i knew teahupo'o worked, so stripping suffixes if both api's fail.
+
+Changed a tiny thing in the CSS of the stats box so the text is always on one line and is always the same size.
