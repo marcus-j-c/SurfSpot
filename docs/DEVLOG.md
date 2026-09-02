@@ -183,3 +183,5 @@ Changed the way the pages are named so it follows what the user requested to fin
 Next have got to calculate a rating, and change which piece of data i grab based of the time of day.
 
 Now grabs the correct data based off the current time.
+
+Really stupid stats box css thing fixed.
