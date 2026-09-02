@@ -177,3 +177,5 @@ Added logging
 Added stripping of suffixes, bc i tried teahupo'o-beach in bruno and it gave me unknown beach but i knew teahupo'o worked, so stripping suffixes if both api's fail.
 
 Changed a tiny thing in the CSS of the stats box so the text is always on one line and is always the same size.
+
+Changed the way the pages are named so it follows what the user requested to find, not the api name.
