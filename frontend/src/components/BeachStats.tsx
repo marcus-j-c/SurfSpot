@@ -35,7 +35,7 @@ export default function BeachStats({ waveHeight, wavePeriod, windSpeed, windDire
             </div>
             <div className = "beach-stats-item">
                 <h2>Weather Conditions</h2>
-                <p>{weather}</p>
+                <p className="beach-stats-weather">{weather}</p>
             </div>
         </div>
     );

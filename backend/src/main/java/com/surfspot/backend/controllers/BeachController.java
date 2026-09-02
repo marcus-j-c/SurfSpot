@@ -55,7 +55,7 @@ public class BeachController {
                 break; //if it works get out of the loop early
             }
             catch (Exception e) {//if it fails, just try again, up to 3 times.
-                e.printStackTrace();
+                log.warn("Open-Meteo request failed on attempt {}: {}", i + 1, e.getMessage());
             }
         }
         log.info("Open-Meteo geocoding response: {}", openMeteoResponse);
@@ -75,7 +75,7 @@ public class BeachController {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            log.warn("Nominatim lookup failed: {}", e.getMessage());
         }
         final String [] suffixes = {"beach", "spot", "point", "break", "reef", "surf"};
         String [] doubleCleanedName = cleanedName.split(" ");
@@ -121,14 +121,14 @@ public class BeachController {
                 marineInfoSuccess = true;
             }
             catch (Exception e) {
-                e.printStackTrace();
+                log.warn("Failed to fetch marine data: {}", e.getMessage());
             }
             try {
                 forecastInfo = restClient.get().uri("https://api.open-meteo.com/v1/forecast?latitude=" + geocodingInfo.results().get(0).latitude() + "&longitude=" + geocodingInfo.results().get(0).longitude() + "&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,weathercode&daily=sunrise,sunset").retrieve().body(ForecastInfo.class); //fetch forecast info based off coords
                 forecastInfoSuccess = true;
             }
             catch (Exception e) {
-                e.printStackTrace();
+                log.warn("Failed to fetch forecast data: {}", e.getMessage());
             }
             if (marineInfoSuccess == true && forecastInfoSuccess == true) {
                 break; //if both requests were successful, break out of the loop early
