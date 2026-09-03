@@ -197,3 +197,5 @@ Define the scope of v1
 Deploy with readme
 
 Rating system added, now just have to create the reasoning.
+
+Reasoning created now to do the same for good and bad stuff.
