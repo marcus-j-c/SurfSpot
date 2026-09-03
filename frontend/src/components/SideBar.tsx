@@ -8,9 +8,9 @@ export function SideBar() {
             <nav>
                 <ul className = "side-bar-links">
                 <li>
-                    <a href = "/spot/bonzai-pipeline" className = "trending-item">
+                    <a href = "/spot/banzai-pipeline" className = "trending-item">
                         <div className = "beach-info">
-                            <span className = "beach-name">1. Bonzai Pipeline</span>
+                            <span className = "beach-name">1. Banzai Pipeline</span>
                             <span className = "beach-location">Hawaii, USA</span>
                         </div>
                         <i className = "material-symbols-outlined icon positive">trending_up</i>

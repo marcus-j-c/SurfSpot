@@ -188,7 +188,7 @@ Really stupid stats box css thing fixed.
 
 ## Day 15
 ### To Do:
-Logo, rename bonzai to banzai, remove hardcoded beaches.
+Logo, rename bonzai to banzai.
 Add about and how it works.
 Make sattelite map say coming soon and account buttons the same.
 Make wrong pages redirect to a 404 if not a /spot page
