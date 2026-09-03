@@ -69,6 +69,47 @@ body::-webkit-scrollbar {
   "side-bar search-bar search-bar search-bar .";
 }
 
+.not-found-grid {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: auto;
+  width: 100%;
+  height: 100%;
+  grid-template-areas:
+  ". . . . ."
+  ". not-found not-found not-found ."
+  ". . . . .";
+}
+
+.not-found {
+  grid-area: not-found;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: center;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-items: center;
+  border-radius: 14px;
+  padding: 0rem 8rem;
+  margin: 0;
+  box-sizing: border-box; 
+}
+
+.not-found h1 {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  font-size: 50px;
+}
+
+.not-found p {
+  font-size: 20px;
+}
+
 .beach-page-grid {
   display: grid;
   grid-template-columns: repeat(5,1fr);

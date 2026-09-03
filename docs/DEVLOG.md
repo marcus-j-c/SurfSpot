@@ -188,10 +188,8 @@ Really stupid stats box css thing fixed.
 
 ## Day 15
 ### To Do:
-Logo, rename bonzai to banzai.
+Logo.
 Add about and how it works.
-Make sattelite map say coming soon and account buttons the same.
-Make wrong pages redirect to a 404 if not a /spot page
 Define the scope of v1
 Deploy with readme
 
@@ -200,3 +198,8 @@ Rating system added, now just have to create the reasoning.
 Reasoning created now to do the same for good and bad stuff.
 
 Good and bad stuff added.
+
+Made a change to my fallback to nominatim to try and hit costal spots first.
+
+Added a 404 page.
+

@@ -2,7 +2,7 @@ import "../App.css";
 
 export function AccountButtons() {
     const handleClick = () => {
-        alert("testMsg"); 
+        alert("Coming soon!");
     };
 
     return (
