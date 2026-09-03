@@ -141,7 +141,7 @@ public class BeachController {
             if (safeDouble(marineInfo.hourly().wave_height(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().wave_period(), currentUtcHour) == -1.0 || safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour) == -1.0) { //if any of the values are 0, return the unknown spot.
                 return hardcodedBeaches.get(0);
             }
-            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), reasoningWriter(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour)), "N/A", "N/A", marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
+            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), reasoningWriter(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour)), goodStuffWriter(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), badStuffWriter(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
         }
         return hardcodedBeaches.get(0);
     }
@@ -299,5 +299,48 @@ public class BeachController {
         }
         reasoning.append(addSpace);
         return reasoning.toString();
+    }
+    private String goodStuffWriter(double[] scoreArray) { //writes the list of good stuff
+        String[] features = {"wave height", "wave period", "wind speed", "water temperature", "weather conditions"};
+        List<String> goodFeatures = new ArrayList<>();
+        for (int i = 0; i < scoreArray.length; i++) {
+            if (scoreArray[i] >= 7.0) {
+                goodFeatures.add(features[i]);
+            }
+        }
+        if (goodFeatures.isEmpty()) {
+            return "No notable positive conditions.";
+        }
+        if (goodFeatures.size() == 1) { // if only one good feature, return it directly
+            return "Good " + goodFeatures.get(0) + ".";
+        }
+        if (goodFeatures.size() == 2) { // if two good features, return them with and, but no comma
+            return "Good " + goodFeatures.get(0) + " and " + goodFeatures.get(1) + ".";
+        }
+        String allButLast = String.join(", ", goodFeatures.subList(0, goodFeatures.size() - 1));
+        String last = goodFeatures.get(goodFeatures.size() - 1);
+        return "Good " + allButLast + ", and " + last + "."; // if more than 2, return with commas and and.
+    }
+
+    private String badStuffWriter(double[] scoreArray) { //writes the list of bad stuff
+        String[] features = {"wave height", "wave period", "wind speed", "water temperature", "weather conditions"};
+        List<String> badFeatures = new ArrayList<>();
+        for (int i = 0; i < scoreArray.length; i++) {
+            if (scoreArray[i] <= 7.0) {
+                badFeatures.add(features[i]);
+            }
+        }
+        if (badFeatures.isEmpty()) {
+            return "No notable negative conditions.";
+        }
+        if (badFeatures.size() == 1) {
+            return "Suboptimal " + badFeatures.get(0) + ".";
+        }
+        if (badFeatures.size() == 2) {
+            return "Suboptimal " + badFeatures.get(0) + " and " + badFeatures.get(1) + ".";
+        }
+        String allButLast = String.join(", ", badFeatures.subList(0, badFeatures.size() - 1));
+        String last = badFeatures.get(badFeatures.size() - 1);
+        return "Suboptimal " + allButLast + ", and " + last + "."; 
     }
 }

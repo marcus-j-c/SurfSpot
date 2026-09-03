@@ -188,7 +188,6 @@ Really stupid stats box css thing fixed.
 
 ## Day 15
 ### To Do:
-Rating system, determinstic reasoning 
 Logo, rename bonzai to banzai, remove hardcoded beaches.
 Add about and how it works.
 Make sattelite map say coming soon and account buttons the same.
@@ -199,3 +198,5 @@ Deploy with readme
 Rating system added, now just have to create the reasoning.
 
 Reasoning created now to do the same for good and bad stuff.
+
+Good and bad stuff added.
