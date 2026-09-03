@@ -141,7 +141,7 @@ public class BeachController {
             if (safeDouble(marineInfo.hourly().wave_height(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().wave_period(), currentUtcHour) == -1.0 || safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour) == -1.0) { //if any of the values are 0, return the unknown spot.
                 return hardcodedBeaches.get(0);
             }
-            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), "No Reasoning Available", "N/A", "N/A", marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
+            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), reasoningWriter(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour)), "N/A", "N/A", marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
         }
         return hardcodedBeaches.get(0);
     }
@@ -225,5 +225,79 @@ public class BeachController {
         double weightedwT = 0.2 * scoreArray[3]; //water temperature is weighted 0.2 times
         double weightedWeatherScore = 0.1 * scoreArray[4]; //weather score is weighted 0.1 times
         return Math.round(((weightedwHwP + weightedwS + weightedwT + weightedWeatherScore) / 2.1) * 10.0) / 10.0; //output the rating rounded to 1dp.
+    }
+
+    private String reasoningWriter(double wH, double wP, double wS, double wT, Integer weather) {
+        double weatherDouble = weather.doubleValue();
+        StringBuilder reasoning = new StringBuilder();
+        StringJoiner addSpace = new StringJoiner(" ");
+        if (wH < 0.4) {
+            addSpace.add("Very low wave height.");
+        }
+        else if (wH <= 1.0) {
+            addSpace.add("Small waves, but still surfable.");
+        }
+        else if (wH <= 2.5) {
+            addSpace.add("Optimal wave height for surfing.");
+        }
+        else if (wH <= 4.5) {
+            addSpace.add("Large waves, good for experienced surfers.");
+        }
+        else {
+            addSpace.add("Extremely large, dangerous waves.");
+        }
+        if (wP < 6.0) {
+            addSpace.add("Short wave period, choppy conditions.");
+        }
+        else if (wP <= 10.0) {
+            addSpace.add("Moderate wave period, decent conditions.");
+        }
+        else if (wP <= 15.0) {
+            addSpace.add("Long wave period, well spaced, clean waves.");
+        }
+        else {
+            addSpace.add("Very long wave period, ideal for surfing.");
+        }
+        if (wS <= 9.0) {
+            addSpace.add("Calm winds, optimal for clean waves.");
+        }
+        else if (wS <= 28.0) {
+            addSpace.add("Light to moderate winds, minimal impact on wave quality.");
+        }
+        else if (wS <= 46.0) {
+            addSpace.add("Strong winds, causing choppy conditions, reducing wave quality.");
+        }
+        else {
+            addSpace.add("Extreme winds, unlikely to be surfable.");
+        }
+        if (wT < 10.0) {
+            addSpace.add("Very cold water, not ideal for surfing.");
+        }
+        else if (wT <= 22.0) {
+            addSpace.add("Cool to mild water temperature, requires a wetsuit.");
+        }
+        else if (wT <= 28.0) {
+            addSpace.add("Warm water temperature, optimal for surfing.");
+        }
+        else {
+            addSpace.add("Very warm water, potentially uncomfortable.");
+        }
+        if (weatherDouble >= 0.0 && weatherDouble <= 1.0) {
+            addSpace.add("Clear skies, excellent visibility.");
+        }
+        else if (weatherDouble >= 2.0 && weatherDouble <= 3.0) {
+            addSpace.add("Partly cloudy or overcast skies, decent visibility.");
+        }
+        else if (weatherDouble == 45.0 || weatherDouble == 48.0) {
+            addSpace.add("Foggy conditions severely reduce visibility.");
+        }
+        else if (weatherDouble >= 51.0 && weatherDouble <= 67.0) {
+            addSpace.add("Rain and drizzle create wet conditions.");
+        }
+        else {
+            addSpace.add("Severe weather impairs conditions.");
+        }
+        reasoning.append(addSpace);
+        return reasoning.toString();
     }
 }
