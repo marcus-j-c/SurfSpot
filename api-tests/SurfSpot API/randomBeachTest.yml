@@ -5,10 +5,10 @@ info:
 
 http:
   method: GET
-  url: "{{baseURL}}/beaches?name=teahupo'o-beach-spot"
+  url: "{{baseURL}}/beaches?name=supertubos-beach"
   params:
     - name: name
-      value: teahupo'o-beach-spot
+      value: supertubos-beach
       type: query
   auth: inherit
 

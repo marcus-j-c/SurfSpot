@@ -185,3 +185,15 @@ Next have got to calculate a rating, and change which piece of data i grab based
 Now grabs the correct data based off the current time.
 
 Really stupid stats box css thing fixed.
+
+## Day 15
+### To Do:
+Rating system, determinstic reasoning 
+Logo, rename bonzai to banzai, remove hardcoded beaches.
+Add about and how it works.
+Make sattelite map say coming soon and account buttons the same.
+Make wrong pages redirect to a 404 if not a /spot page
+Define the scope of v1
+Deploy with readme
+
+Rating system added, now just have to create the reasoning.

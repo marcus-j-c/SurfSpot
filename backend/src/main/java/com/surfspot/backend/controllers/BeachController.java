@@ -141,8 +141,89 @@ public class BeachController {
             if (safeDouble(marineInfo.hourly().wave_height(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().wave_period(), currentUtcHour) == -1.0 || safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour) == -1.0) { //if any of the values are 0, return the unknown spot.
                 return hardcodedBeaches.get(0);
             }
-            return new BeachInfo(null, displayName, 0.0, safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), "No Reasoning Available", "N/A", "N/A", marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
+            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), "No Reasoning Available", "N/A", "N/A", marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
         }
         return hardcodedBeaches.get(0);
+    }
+
+    private double [] preRatingCalcuator (double wH, double wP, double wS, double wT, Integer weather) {
+        double [] scoreArray = new double [5];
+        double weatherDouble = weather.doubleValue();
+        if (wH < 0.4) { //here i just linearly scale the wave height score, 2.5m being the optimal.
+            scoreArray[0] = Math.max(0.0, wH * 5.0); // 0 - 2
+        }
+        else if (wH <= 1.0) {
+            scoreArray[0] = 2.0 + ((wH - 0.4) / 0.6) * 4.0; // 2 - 6
+        }
+        else if (wH <= 2.5) {
+            scoreArray[0] = 6.0 + ((wH - 1.0) / 1.5) * 4.0; // 6 - 10
+        }
+        else if (wH <= 4.5) {
+            scoreArray[0] = 10.0 - ((wH - 2.5) / 2.0) * 2.0; // 10 - 8
+        }
+        else {
+            scoreArray[0] = Math.max(2.0, 8.0 - (wH - 4.5) * 0.5); // 8 - 2
+        }
+        if (wP < 6.0) { //here i just linearly scale the wave period score, more than 15s is optimal.
+            scoreArray[1] = Math.max(0.0, (wP / 6.0) * 2.0); // 0 - 2
+        }
+        else if (wP <= 10.0) {
+            scoreArray[1] = 3.0 + ((wP - 6.0) / 4.0) * 3.0; // 3 - 6
+        }
+        else if (wP <= 15.0) {
+            scoreArray[1] = 6.0 + ((wP - 10.0) / 5.0) * 3.5; // 6 - 9.5
+        }
+        else {
+            scoreArray[1] = 10.0;
+        }
+        if (wS <= 9.0) { //here i just linearly scale the wind speed score, less than 9 km/h (open meteo gives in in km/) is optimal. Higher wind is worse.
+            scoreArray[2] = 10.0;
+        }
+        else if (wS <= 28.0) {
+            scoreArray[2] = 10.0 - ((wS - 9.0) / 19.0) * 5.0; // 10 - 5
+        }
+        else if (wS <= 46.0) {
+            scoreArray[2] = 5.0 - ((wS - 28.0) / 18.0) * 4.0; // 5 - 1
+        }
+        else {
+            scoreArray[2] = 0.0;
+        }
+        if (wT < 10.0) { //here i just linearly scale the water temperature score, 28°C is the optimal temp.
+            scoreArray[3] = Math.max(1.0, (wT / 10.0) * 4.0); // 1 - 4
+        }
+        else if (wT <= 22.0) {
+            scoreArray[3] = 4.0 + ((wT - 10.0) / 12.0) * 6.0; // 4 - 10
+        }
+        else if (wT <= 28.0) {
+            scoreArray[3] = 10.0;
+        }
+        else {
+            scoreArray[3] = Math.max(6.0, 10.0 - (wT - 28.0) * 0.5); // 10 - 6
+        }
+        if (weatherDouble >= 0.0 && weatherDouble <= 1.0) { //here i just tke the weathercode, and assign a score based off of it, general trend is that less visibility is worse.
+            scoreArray[4] = 10.0;
+        }
+        else if (weatherDouble >= 2.0 && weatherDouble <= 3.0) {
+            scoreArray[4] = 7.5;
+        }
+        else if (weatherDouble == 45.0 || weatherDouble == 48.0) {
+            scoreArray[4] = 4.0;
+        }
+        else if (weatherDouble >= 51.0 && weatherDouble <= 67.0) {
+            scoreArray[4] = 3.0;
+        }
+        else {
+            scoreArray[4] = 0.0;
+        }
+        return scoreArray;
+    }
+
+    private double ratingCalculator(double [] scoreArray) {
+        double wHwPCombination = scoreArray[0] * ((scoreArray[1] / 10) * (scoreArray[1] / 10)); //wave height and wave period combination, means that waveHeight score is now dependent on wavePeriod score.
+        double weightedwHwP = 1.2 * wHwPCombination; //wave height and wave period combination is weighted 1.2 times
+        double weightedwS = 0.6 * scoreArray[2]; //wind speed is weighted 0.6 times
+        double weightedwT = 0.2 * scoreArray[3]; //water temperature is weighted 0.2 times
+        double weightedWeatherScore = 0.1 * scoreArray[4]; //weather score is weighted 0.1 times
+        return Math.round(((weightedwHwP + weightedwS + weightedwT + weightedWeatherScore) / 2.1) * 10.0) / 10.0; //output the rating rounded to 1dp.
     }
 }
