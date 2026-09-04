@@ -1,6 +1,6 @@
 import "../App.css";
 
-export function SideBar() {
+export function SideBar() { //hardcoded for now, making it dynamic is not in the scope of v1, but it does grab real data, works exactly the same as the search bar, so clicking bells beach is the same as typing into the search bar bells beach, and it will fetch the real data.
     return (
         <>
         <div className = "side-bar">
