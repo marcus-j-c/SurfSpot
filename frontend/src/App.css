@@ -549,6 +549,8 @@ body::-webkit-scrollbar {
 
 .title-and-logo { 
   grid-area: title-and-logo;
+  display: flex;
+  align-items: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
   font-style: italic;
@@ -558,6 +560,14 @@ body::-webkit-scrollbar {
   z-index: 2;
   color: #ffffff;
 }
+
+.logo-emoji {
+  font-size: 1.6em;
+  line-height: 1;
+  display: inline-block;
+  transform: translateY(-10px);
+}
+
 .nav-bar {
   grid-area: nav-bar;
   width: fit-content;
@@ -866,4 +876,137 @@ body::-webkit-scrollbar {
 .search-bar-input::placeholder,
 .search-bar-icon {
   color: #f3f4f6;
+}
+
+@media (max-width: 900px) { /*My design changes for smaller screens like phones */
+  body {
+    overflow-y: auto !important; /*forces vertical scrolling on the home page*/
+  }
+
+  .overall-grid { /*switch to vertical flexbox*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: auto;
+    padding: 1rem 0;
+  }
+
+  .nav-bar-links {
+    gap: 1rem;
+    flex-wrap: wrap; /*allows stuff to wrap to the next line if they don't fit*/
+    justify-content: center;
+  }
+
+  .home-grid { /*no longer a fixed grid*/
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    height: auto;
+    width: 100%;
+    padding: 1rem 0;
+    box-sizing: border-box;
+  }
+
+  .centre-header {
+    order: 1; /*first item in the vertical flexbox*/
+    align-self: center; /*overrides normal alignment*/
+    text-align: center;
+    white-space: normal;
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    margin: 0;
+    width: 100%;
+  }
+
+  .search-bar {
+    order: 2;
+    align-self: center;
+    width: 90%;
+    max-width: 500px;
+    margin: 0;
+  }
+
+  .side-bar {
+    order: 3;
+    align-self: center; 
+    width: 90%;
+    max-width: 500px;
+    margin: 0;
+  }
+
+  .trending-item {
+    margin-left: 0;
+    grid-template-columns: 1fr auto auto;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .how-it-works-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .how-it-works {
+    width: 90%;
+    padding: 2rem 1.25rem;
+  }
+
+  .how-it-works h1 {
+    font-size: 32px;
+  }
+
+  .about-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .about {
+    width: 90%;
+    padding: 2rem 1.25rem;
+  }
+
+  .about h1 {
+    font-size: 32px;
+  }
+
+  .not-found-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .not-found {
+    width: 90%;
+    padding: 2rem 1.25rem;
+  }
+
+  .not-found h1 {
+    font-size: 32px;
+  }
+
+  .beach-page-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .beach-header {
+    white-space: normal;
+    text-align: center;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .beach-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

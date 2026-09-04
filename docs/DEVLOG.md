@@ -202,9 +202,12 @@ How it works added.
 
 About added.
 
+Added logo.
+
+Made custom css styling for smaller screens like phones.
+
 ### To Do:
-Logo.
-Define the scope of v1
+Define the scope of v1 in readme
 Deploy with readme
 
 
