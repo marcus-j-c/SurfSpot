@@ -138,31 +138,64 @@ body::-webkit-scrollbar {
 .about {
   grid-area: about;
   width: fit-content;
-  height: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
   justify-self: center;
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(8px);
   align-items: center;
   justify-items: center;
   border-radius: 14px;
-  padding: 0rem 8rem;
-  margin: 0;
-  box-sizing: border-box; 
+  padding: 2rem 8rem 1rem 8rem;
+  margin: 2.5rem 0 1rem 0;
+  box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
 
 .about h1 {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
   font-size: 50px;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.about h2{
+  color: #f97316;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-shadow: 0 0 8px rgba(249, 115, 22, 0.8);
 }
 
 .about p {
   font-size: 20px;
+  color: #7dd3fc;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.tech-list {
+  list-style: none;
+  padding: 0;
+  max-width: 650px;
+}
+
+.about li {
+  font-size: 20px;
+  color: #7dd3fc;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.about strong {
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .not-found-grid {
