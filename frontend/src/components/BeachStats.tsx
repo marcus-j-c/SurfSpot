@@ -10,7 +10,7 @@ interface BeachStatsProps {
     weather: string;
 }
 
-export default function BeachStats({ waveHeight, wavePeriod, windSpeed, windDirection, tide, waterTemp, weather }: BeachStatsProps) {
+export default function BeachStats({ waveHeight, wavePeriod, windSpeed, windDirection,/* tide,*/ waterTemp, weather }: BeachStatsProps) {
     return (
         <div className = "beach-stats">
             <div className = "beach-stats-item">
@@ -27,7 +27,7 @@ export default function BeachStats({ waveHeight, wavePeriod, windSpeed, windDire
             </div>
             <div className = "beach-stats-item">
                 <h2>Tide</h2>
-                <p>{tide} m</p>
+                {/*<p>{tide} m</p> Tide data not in v1*/ <p style = {{color: "#f97316"}}>Coming soon!</p>}
             </div>
             <div className = "beach-stats-item">
                 <h2>Water Temperature</h2>
