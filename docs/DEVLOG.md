@@ -187,12 +187,6 @@ Now grabs the correct data based off the current time.
 Really stupid stats box css thing fixed.
 
 ## Day 15
-### To Do:
-Logo.
-Add about and how it works.
-Define the scope of v1
-Deploy with readme
-
 Rating system added, now just have to create the reasoning.
 
 Reasoning created now to do the same for good and bad stuff.
@@ -203,3 +197,11 @@ Made a change to my fallback to nominatim to try and hit costal spots first.
 
 Added a 404 page.
 
+## Day 16
+### To Do:
+Logo.
+Add about.
+Define the scope of v1
+Deploy with readme
+
+How it works added.

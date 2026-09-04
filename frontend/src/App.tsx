@@ -4,6 +4,8 @@ import BeachDetail from "./pages/BeachDetail";
 import Layout from "./Layout";
 import "./App.css";
 import NotFound from "./pages/NotFound";
+import HowItWorks from "./pages/HowItWorks";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
         <Route element={<Layout />}>
           <Route path = "/" element = {<Home/>}/>
           <Route path = "spot/:beachName" element = {<BeachDetail/>}/> //anything that comes after spot is saved as a parameter named beachName and the element bit means make this parameter available to the beach component.
-          <Route path="*" element={<NotFound/>} />
+          <Route path="about" element={<About/>}/>
+          <Route path="how-it-works" element={<HowItWorks/>}/>
+          <Route path="*" element={<NotFound/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
