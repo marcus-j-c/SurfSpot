@@ -10,8 +10,8 @@ Installed and configured:
 - Visual Studio Code
 - Node.js and npm
 - Docker Desktop
-- PostgreSQL
-- pgAdmin 4
+- PostgreSQL (connected up but unused in v1)
+- pgAdmin 4 (connected up but unused in v1)
 - Bruno API client
 
 Configured:
@@ -198,10 +198,13 @@ Made a change to my fallback to nominatim to try and hit costal spots first.
 Added a 404 page.
 
 ## Day 16
+How it works added.
+
+About added.
+
 ### To Do:
 Logo.
-Add about.
 Define the scope of v1
 Deploy with readme
 
-How it works added.
+
