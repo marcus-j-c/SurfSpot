@@ -1011,7 +1011,10 @@ body::-webkit-scrollbar {
 
   .how-it-works {
     width: 90%;
+    max-width: 500px;
     padding: 2rem 1.25rem;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   .how-it-works h1 {
@@ -1027,11 +1030,18 @@ body::-webkit-scrollbar {
 
   .about {
     width: 90%;
+    max-width: 500px;
     padding: 2rem 1.25rem;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   .about h1 {
     font-size: 32px;
+  }
+
+  .about li {
+    font-size: 16px;
   }
 
   .not-found-grid {
@@ -1043,7 +1053,10 @@ body::-webkit-scrollbar {
 
   .not-found {
     width: 90%;
+    max-width: 500px;
     padding: 2rem 1.25rem;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   .not-found h1 {
@@ -1066,6 +1079,70 @@ body::-webkit-scrollbar {
 
   .beach-stats {
     grid-template-columns: repeat(2, 1fr);
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
+
+  .beach-stats-item {
+    height: auto;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .beach-stats-item h2 {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .beach-stats-item p {
+    font-size: 18px;
+  }
+
+  .why-rating {
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+  }
+
+  .why-rating p {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .good-stuff {
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+  }
+
+  .good-stuff-title {
+    justify-content: center;
+  }
+
+  .good-stuff p {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .bad-stuff {
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bad-stuff-title {
+    justify-content: center;
+  }
+
+  .bad-stuff p {
+    font-size: 16px;
+    text-align: center;
   }
 
   .app-footer {

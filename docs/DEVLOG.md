@@ -211,12 +211,14 @@ Footer added, to credit the APIs I used.
 
 ReadMe written.
 
-Removed database dependencies from pom.xml
+Removed database dependencies from pom.xml.
 
-Added Dockerfile
+Added Dockerfile.
 
-Backend Deployed - Render
+Backend Deployed - Render.
 
-Frontend Deployed - Vercel
+Frontend Deployed - Vercel.
 
-Whole Thing Deploued
+Whole Thing Deployed.
+
+Made some adjustments to my mobile css.
