@@ -215,7 +215,8 @@ Removed database dependencies from pom.xml
 
 Added Dockerfile
 
-### To Do:
-Deploy
+Backend Deployed
 
+Frontend Deployed
 
+Whole Thing Deploued
