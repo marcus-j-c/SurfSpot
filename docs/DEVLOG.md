@@ -9,7 +9,7 @@ Installed and configured:
 - IntelliJ IDEA Ultimate
 - Visual Studio Code
 - Node.js and npm
-- Docker Desktop
+- Docker Desktop (unused in v1)
 - PostgreSQL (connected up but unused in v1)
 - pgAdmin 4 (connected up but unused in v1)
 - Bruno API client
