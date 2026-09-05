@@ -211,7 +211,11 @@ Footer added, to credit the APIs I used.
 
 ReadMe written.
 
+Removed database dependencies from pom.xml
+
+Added Dockerfile
+
 ### To Do:
-Deploy with readme
+Deploy
 
 
