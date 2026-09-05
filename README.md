@@ -2,7 +2,7 @@
 
 ## Try the Live Demo
 
-> Note: The backend is hosted on a free tier and may take 20–50 seconds to wake up on the first request after a period of inactivity. Subsequent searches will be fast.
+> Note: The backend is hosted on a free tier and may take 20–50 seconds to wake up on the first request after not being used. Afterwards, searches will be fast.
 
 ## What is SurfSpot
 SurfSpot is a surf forecasting web app that provides real-time data, simplifying multiple stats into a single rating and simple insights so surfers know if it's worth calling in sick.
