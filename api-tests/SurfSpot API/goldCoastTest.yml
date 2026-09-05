@@ -1,7 +1,7 @@
 info:
   name: goldCoastTest
   type: http
-  seq: 10
+  seq: 8
 
 http:
   method: GET
@@ -17,3 +17,4 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true
