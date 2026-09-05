@@ -13,7 +13,7 @@ import java.text.Normalizer;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:5173") //this allows React to fetch the data from the backend.
+@CrossOrigin(origins = {"https://surf-spot-ruddy.vercel.app", "http://localhost:5173"}) //this allows React to fetch the data from the backend.
 @RestController
 @RequestMapping("/beaches")
 public class BeachController {
@@ -49,9 +49,9 @@ public class BeachController {
         log.info("No Open-Meteo results, falling back to Nominatim for '{}'", cleanedName);
         try { //if the response is empty, try nominatim as my backup, with beach first to target the coast, then the original name.
             String searchTarget = cleanedName.contains("beach") ? cleanedName : cleanedName + " beach";
-            BackupGeocodingInfo[] nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + searchTarget + "&format=json").header("User-Agent", "SurfSpot/V1").retrieve().body(BackupGeocodingInfo[].class);
+            BackupGeocodingInfo[] nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + searchTarget + "&format=json").header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve().body(BackupGeocodingInfo[].class);
             if ((nominatimResponse == null || nominatimResponse.length == 0) && !searchTarget.equals(cleanedName)) {
-                nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + cleanedName + "&format=json").header("User-Agent", "SurfSpot/V1").retrieve().body(BackupGeocodingInfo[].class);
+                nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + cleanedName + "&format=json").header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve().body(BackupGeocodingInfo[].class);
             }
             if (nominatimResponse != null && nominatimResponse.length > 0) { //check if the response isnt empty.
                 Arrays.sort(nominatimResponse, Comparator.comparingDouble(BackupGeocodingInfo::importance).reversed()); //sort nominatim respone by importance, from highest to lowest,
