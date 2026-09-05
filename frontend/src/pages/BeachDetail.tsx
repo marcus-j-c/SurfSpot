@@ -27,7 +27,7 @@ export default function BeachDetail() {
   const {beachName} = useParams<{beachName: string}>(); //save the recieved parameter as a variable named beachName
   const [currentBeach, setCurrentBeach] = useState<BeachData | null>(null); //state variable to hold the current beach data, can either hold a valid beach data object or be null.
   const [isLoading, setIsLoading] = useState<boolean>(true); //waits for the data to be fetched before rendering the page, initially set to true, while true can show a placeholder like Loading...
-  const url = `http://localhost:8080/beaches?name=${encodeURIComponent(beachName ?? "")}`; //points to my real backend, and uses raw name cause i do the cleaning on the backend!!!
+  const url = `${import.meta.env.VITE_API_BASE_URL}/beaches?name=${encodeURIComponent(beachName ?? "")}`; //points to my real backend, and uses raw name cause i do the cleaning on the backend!!!
   useEffect(() => { //FOR THE REAL BACKEND.
     fetch(url)
     .then((response) => response.json()) //parse the response as json
