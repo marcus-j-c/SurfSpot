@@ -8,7 +8,7 @@ export default function About() {
                 <h2>What is SurfSpot?</h2>
                 <p>SurfSpot is a surf forecasting web app that provides real-time data, simplifying multiple stats into a single rating and simple insights so surfers know if it's worth calling in sick.</p>
                 <h2>Why I built SurfSpot</h2>
-                <p>I built SurfSpot as I was getting into surfing and needed a tool that could give me instant forecasts, in a format I actually wanted, no matter where in the world I am. I wanted to learn full-stack development by building something real from scratch rather than just copying tutorials, so I decided to build SurfSpot end-to-end as a 16-day sprint.</p>
+                <p>I built SurfSpot as I was getting into surfing and needed a tool that could give me instant forecasts, in a format I actually wanted, no matter where in the world I am. I wanted to learn full-stack development by building something real from scratch rather than just copying tutorials, so I decided to build SurfSpot end-to-end as a 17-day sprint.</p>
                 <h2>Tech Stack & Architecture</h2>
                 <ul className="tech-list">
                     <li>

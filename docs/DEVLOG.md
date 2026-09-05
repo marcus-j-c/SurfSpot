@@ -206,8 +206,12 @@ Added logo.
 
 Made custom css styling for smaller screens like phones.
 
+## Day 17
+Footer added, to credit the APIs I used.
+
+ReadMe written.
+
 ### To Do:
-Define the scope of v1 in readme
 Deploy with readme
 
 
