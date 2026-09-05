@@ -215,8 +215,8 @@ Removed database dependencies from pom.xml
 
 Added Dockerfile
 
-Backend Deployed
+Backend Deployed - Render
 
-Frontend Deployed
+Frontend Deployed - Vercel
 
 Whole Thing Deploued
