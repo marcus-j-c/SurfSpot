@@ -1095,8 +1095,7 @@ body::-webkit-scrollbar {
   }
 
   .beach-stats-item p {
-    font-size: 15px;
-    white-space: nowrap;
+    font-size: 18px;
   }
 
   .why-rating {

@@ -27,7 +27,7 @@ export default function BeachStats({ waveHeight, wavePeriod, windSpeed, windDire
             </div>
             <div className = "beach-stats-item">
                 <h2>Tide</h2>
-                {/*<p>{tide} m</p> Tide data not in v1*/ <p style = {{color: "#f97316"}}>Coming soon!</p>}
+                {/*<p>{tide} m</p> Tide data not in v1*/ <p style={{ color: "#f97316", whiteSpace: "nowrap" }}>Coming soon!</p>}
             </div>
             <div className = "beach-stats-item">
                 <h2>Water Temperature</h2>
