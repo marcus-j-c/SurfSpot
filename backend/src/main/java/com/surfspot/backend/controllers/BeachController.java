@@ -35,10 +35,11 @@ public class BeachController {
     private GeocodingResult coordsRequest(String name, String displayName) {
         String cleanedName = Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("\\p{M}", "").replace("-", " ").toLowerCase().trim(); //Normalizer.normalize(name, Normalizer.Form.NFD) split the accent mark and the letter its on into 2 characters replaceAll("\\p{M}", "") vaporises all split off accent marks, replace hyphens with spaces, convert to lowercase, and trim whitespaces.
         log.info("Searching geocoding API for cleaned name: '{}'", cleanedName);
+        String searchTarget = cleanedName.contains("beach") ? cleanedName : cleanedName + " beach"; //try costal search first.
         BackupGeocodingInfo[] locationIqResponse = null;
         for (int i = 0; i < 3; i++) { //try locationIq up to 3 times in case of a causing failure network error.
             try {
-                locationIqResponse = restClient.get().uri("https://us1.locationiq.com/v1/search?key=" + locationIqKey + "&q=" + cleanedName + "&format=json").retrieve().body(BackupGeocodingInfo[].class);break; //if it works get out of the loop early
+                locationIqResponse = restClient.get().uri("https://us1.locationiq.com/v1/search?key=" + locationIqKey + "&q=" + searchTarget + "&format=json").retrieve().body(BackupGeocodingInfo[].class);break; //if it works get out of the loop early
             }
             catch (Exception e) {//if it fails, just try again, up to 3 times.
                 log.warn("locationIq request failed on attempt {}: {}", i + 1, e.getMessage());
@@ -53,7 +54,6 @@ public class BeachController {
         }
         log.info("No locationIq results, falling back to Nominatim for '{}'", cleanedName);
         try { //if the response is empty, try nominatim as my backup, with beach first to target the coast, then the original name.
-            String searchTarget = cleanedName.contains("beach") ? cleanedName : cleanedName + " beach";
             BackupGeocodingInfo[] nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + searchTarget + "&format=json").header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve().body(BackupGeocodingInfo[].class);
             if ((nominatimResponse == null || nominatimResponse.length == 0) && !searchTarget.equals(cleanedName)) {
                 nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + cleanedName + "&format=json").header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve().body(BackupGeocodingInfo[].class);
