@@ -358,8 +358,7 @@ body::-webkit-scrollbar {
 }
 
 .beach-stats-item h2 {
-  margin: 1rem 0.25rem;
-  font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+  margin: 1rem 0rem;
   text-align: center;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
@@ -929,7 +928,7 @@ body::-webkit-scrollbar {
   color: #f3f4f6;
 }
 
-@media (max-width: 1024px) { /*My design changes for smaller screens like phones */
+@media (max-width: 1400px) { /*My design changes for smaller screens like phones */
   body {
     overflow-y: auto !important; /*forces vertical scrolling on the home page*/
   }
