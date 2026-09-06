@@ -3,6 +3,12 @@
 ## Try the Live Demo
 https://surf-spot-ruddy.vercel.app/
 
+![SurfSpot homepage](./screenshots/Homepage.png)
+
+![Beach detail page top](./screenshots/BeachPageTop.png)
+
+![Beach detail page bottom](./screenshots/BeachPageBottom.png)
+
 > Note: The backend is hosted on a free tier and may take 20–50 seconds to wake up on the first request after not being used. Afterwards, searches will be fast.
 
 ## What is SurfSpot

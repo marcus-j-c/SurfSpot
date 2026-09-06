@@ -101,7 +101,7 @@ Decided to give up on the appeareance for now as its driving me insane, ill come
 
 Just set up react router, and changes my css, so the logo navbar and account buttons persist across every page and damn it looks so cool, and holy is it so useful too be able to do that!!
 
-Added a single background photo, just as a test, gonna leave it like this for now, work in progress.
+Added a single background photo, just as a test, gonna leave it like this for now, work in progress. (Free License - from Unsplash) 
 
 ## Day 9
 I've completely redesigned the look and i think personally that it is way better, made the sidebar glasmorphism along with the search bar!!
