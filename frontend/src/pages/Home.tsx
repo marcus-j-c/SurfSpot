@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+/*import {useEffect} from "react";*/
 import "../App.css";
 import {SearchBar} from '../components/SearchBar';
 import {SideBar} from "../components/SideBar";
@@ -11,12 +11,12 @@ export default function Home() {
     const cleanedBeachName = beachName.toLowerCase().replace(/\s+/g, "-");
     navigate(`/spot/${cleanedBeachName}`);
   };
-  useEffect(() => {
+  /*useEffect(() => {
     document.body.style.overflow = "hidden"; // Lock scroll on Home
     return () => {
       document.body.style.overflow = "auto"; // Re-enable scroll when leaving Home
     };
-  }, []);
+  }, []);*/
   return (
     <div className="home-grid">
       <CentreHeader/>
