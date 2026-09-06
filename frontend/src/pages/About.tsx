@@ -15,10 +15,10 @@ export default function About() {
                     <strong>Frontend:</strong> I built the frontend with React, TypeScript, and I went for a glassmorphism style via App.css. I used React Router for persistent layouts and routing, and I built a custom animation for the center header of the homepage.
                     </li>
                     <li>
-                    <strong>Backend:</strong> I built the backend with Java Spring Boot REST endpoints, using Java Records (DTOs) and custom string normalisation to handle user inputs. I used a multi-fallback strategy: Open-Meteo first (sorted by population), falling back to Nominatim coastal search (sorted by importance), and recursively stripping suffixes like "beach" or "spot" if the initial searches fail.  
+                    <strong>Backend:</strong> I built the backend with Java Spring Boot REST endpoints, using Java Records (DTOs) and custom string normalisation to handle user inputs. I used a multi-fallback strategy: LocationIQ first (sorted by importance), falling back to Nominatim coastal search (sorted by importance), and recursively stripping suffixes like "beach" or "spot" if the initial searches fail.  
                     </li>
                     <li>
-                    <strong>Scoring Algorithm & Insights:</strong> I built a custom algorithm that converts the raw marine and weather data from Open-Meteo into a single rating out of 10. Then I take that rating, and using a formula I created, I weight the ratings, and connect them (some are dependant on others) to create the final spot rating. I also wrote custom logic that creates reasoning, and  understandable insights based off the raw data.
+                    <strong>Scoring Algorithm & Insights:</strong> I built a custom algorithm that converts the raw marine data from open-meteo and weather data from OpenWeatherMap into a single rating out of 10. Then I take that rating, and using a formula I created, I weight the ratings, and connect them (some are dependant on others) to create the final spot rating. I also wrote custom logic that creates reasoning, and  understandable insights based off the raw data.
                     </li>
                 </ul>
             </div>
