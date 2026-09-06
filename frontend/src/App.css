@@ -930,7 +930,7 @@ body::-webkit-scrollbar {
   color: #f3f4f6;
 }
 
-@media (max-width: 1024px) { /*My design changes for smaller screens like phones */
+@media (max-width: 1210px) { /*My design changes for smaller screens like phones */
   body {
     overflow-y: auto !important; /*forces vertical scrolling on the home page*/
   }
