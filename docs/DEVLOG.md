@@ -186,7 +186,7 @@ Now grabs the correct data based off the current time.
 
 Really stupid stats box css thing fixed.
 
-## Day 15
+## Day 17
 Rating system added, now just have to create the reasoning.
 
 Reasoning created now to do the same for good and bad stuff.
@@ -197,7 +197,7 @@ Made a change to my fallback to nominatim to try and hit costal spots first.
 
 Added a 404 page.
 
-## Day 16
+## Day 18
 How it works added.
 
 About added.
@@ -206,7 +206,7 @@ Added logo.
 
 Made custom css styling for smaller screens like phones.
 
-## Day 17
+## Day 19
 Footer added, to credit the APIs I used.
 
 ReadMe written.
@@ -229,3 +229,5 @@ Render was eating all my api tokens, bc open-meteo is IP based, so ive applied a
 Hotfix is ugly, and now the code is a bit messy but it works. 
 
 Updated footer and about page to reflect the changes.
+
+Updated locationiq to be a costal search.
