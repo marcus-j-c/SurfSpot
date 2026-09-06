@@ -222,3 +222,10 @@ Frontend Deployed - Vercel.
 Whole Thing Deployed.
 
 Made some adjustments to my mobile css.
+
+## Bonus Day Post Deployment
+Render was eating all my api tokens, bc open-meteo is IP based, so ive applied a really quick hotfix, and swapped out open-meteo for locationiq, and my forecast info which was open-meteo for open weather maps, as both require an api key. Marine data from open-meteo does not seem to be connected to the same thing as geocoding and forecasting data so ive kept that as open-meteo for now.
+
+Hotfix is ugly, and now the code is a bit messy but it works. 
+
+Updated footer and about page to reflect the changes.

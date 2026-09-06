@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Instant;
 import java.time.ZoneOffset;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
@@ -20,6 +21,10 @@ public class BeachController {
     private static final Logger log = LoggerFactory.getLogger(BeachController.class);
     private record GeocodingResult(GeocodingInfo info, String displayName) {}
     private final RestClient restClient = RestClient.create(); //create a RestClient instance
+    @Value("${LOCATIONIQ_KEY}")
+    private String locationIqKey;
+    @Value("${OWM_API_KEY}")
+    private String oWMKey;
     @GetMapping
     public BeachInfo getBeachByName(@RequestParam String name) {
         String cleanedName = Arrays.stream(name.split("-")).map(word -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.joining(" ")); //collect(Collectors.joining(" ")) tells to join with spaces. substring(0,1) grabs first char, as that is 0 up to but not including 1, then substring(1) grabs the rest of the string starting at index 1. And map just applies this capitalisation to each word. This is the same as i did in TS on my frontend.
@@ -30,23 +35,23 @@ public class BeachController {
     private GeocodingResult coordsRequest(String name, String displayName) {
         String cleanedName = Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("\\p{M}", "").replace("-", " ").toLowerCase().trim(); //Normalizer.normalize(name, Normalizer.Form.NFD) split the accent mark and the letter its on into 2 characters replaceAll("\\p{M}", "") vaporises all split off accent marks, replace hyphens with spaces, convert to lowercase, and trim whitespaces.
         log.info("Searching geocoding API for cleaned name: '{}'", cleanedName);
-        GeocodingInfo openMeteoResponse = null;
-        for (int i = 0; i < 3; i++) { //try open meteo to 3 times in case of a causing failure network error.
+        BackupGeocodingInfo[] locationIqResponse = null;
+        for (int i = 0; i < 3; i++) { //try locationIq up to 3 times in case of a causing failure network error.
             try {
-                openMeteoResponse = restClient.get().uri("https://geocoding-api.open-meteo.com/v1/search?name=" + cleanedName).retrieve().body(GeocodingInfo.class); //restClient.get() says go fetch something from the internet, .body(GeocodingInfo.class) puts the result straight into my record.
-                break; //if it works get out of the loop early
+                locationIqResponse = restClient.get().uri("https://us1.locationiq.com/v1/search?key=" + locationIqKey + "&q=" + cleanedName + "&format=json").retrieve().body(BackupGeocodingInfo[].class);break; //if it works get out of the loop early
             }
             catch (Exception e) {//if it fails, just try again, up to 3 times.
-                log.warn("Open-Meteo request failed on attempt {}: {}", i + 1, e.getMessage());
+                log.warn("locationIq request failed on attempt {}: {}", i + 1, e.getMessage());
             }
         }
-        log.info("Open-Meteo geocoding response: {}", openMeteoResponse);
-        if (openMeteoResponse != null && openMeteoResponse.results() != null && !openMeteoResponse.results().isEmpty()) { //check if the response isnt empty.
-            ArrayList<GeocodingInfo.BeachCoords> sortOpenMeteoResponse = new ArrayList<>(openMeteoResponse.results());
-            sortOpenMeteoResponse.sort(Comparator.comparing(GeocodingInfo.BeachCoords::population, Comparator.nullsLast(Comparator.reverseOrder()))); //sort openMeteoResponse by population from highest to lowest nulls at the very bottom.
-            return new GeocodingResult(new GeocodingInfo(sortOpenMeteoResponse), displayName); // if it isnt return it.
+        log.info("locationIq geocoding response: {}", locationIqResponse);
+        if (locationIqResponse != null && locationIqResponse.length > 0) { //check if the response isnt empty.
+            Arrays.sort(locationIqResponse, Comparator.comparingDouble(BackupGeocodingInfo::importance).reversed()); //sort locationIq response by importance, from highest to lowest,
+            BackupGeocodingInfo firstResult = locationIqResponse[0]; //temporary before dropdown box on frontend search bar, this would not work though, bc locationIq's name field is display_name where as nominatim's is name, and so, i couldnt do this until i fix that, but this isnt in v1 anyway so its not a bug rn.
+            GeocodingInfo.BeachCoords coords = new GeocodingInfo.BeachCoords(firstResult.name(), Double.parseDouble(firstResult.lat()), Double.parseDouble(firstResult.lon())); //convert the locationIq response into a geocodinginfo record, bc this is the fastest fix from swapping out open meteo for locIq.
+            return new GeocodingResult(new GeocodingInfo(List.of(coords)), displayName); //return the geocodinginfo record with the coords in a list.
         }
-        log.info("No Open-Meteo results, falling back to Nominatim for '{}'", cleanedName);
+        log.info("No locationIq results, falling back to Nominatim for '{}'", cleanedName);
         try { //if the response is empty, try nominatim as my backup, with beach first to target the coast, then the original name.
             String searchTarget = cleanedName.contains("beach") ? cleanedName : cleanedName + " beach";
             BackupGeocodingInfo[] nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + searchTarget + "&format=json").header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve().body(BackupGeocodingInfo[].class);
@@ -54,9 +59,9 @@ public class BeachController {
                 nominatimResponse = restClient.get().uri("https://nominatim.openstreetmap.org/search?q=" + cleanedName + "&format=json").header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve().body(BackupGeocodingInfo[].class);
             }
             if (nominatimResponse != null && nominatimResponse.length > 0) { //check if the response isnt empty.
-                Arrays.sort(nominatimResponse, Comparator.comparingDouble(BackupGeocodingInfo::importance).reversed()); //sort nominatim respone by importance, from highest to lowest,
+                Arrays.sort(nominatimResponse, Comparator.comparingDouble(BackupGeocodingInfo::importance).reversed()); //sort nominatim response by importance, from highest to lowest,
                 BackupGeocodingInfo firstResult = nominatimResponse[0]; //temporary before dropdown box on frontend search bar
-                GeocodingInfo.BeachCoords coords = new GeocodingInfo.BeachCoords(firstResult.name(), Double.parseDouble(firstResult.lat()), Double.parseDouble(firstResult.lon()), 0); //convert the nominatim response into a geocodinginfo record, damn apis with different formats!!!
+                GeocodingInfo.BeachCoords coords = new GeocodingInfo.BeachCoords(firstResult.name(), Double.parseDouble(firstResult.lat()), Double.parseDouble(firstResult.lon())); //convert the nominatim response into a geocodinginfo record, bc this is the fastest fix from swapping out open meteo for locIq, leaving it as it was befire.
                 return new GeocodingResult(new GeocodingInfo(List.of(coords)), displayName); //return the geocodinginfo record with the coords in a list.
             }
         }
@@ -81,12 +86,30 @@ public class BeachController {
         return (list != null && list.size() > currentUtcHour && list.get(currentUtcHour) != null) ? list.get(currentUtcHour) : -1.0; //if the list doesnt exist, is empty or the first element is null, return -1.0, otherwise return the first element.
     }
 
+    private double round1dp(double value) { //needed now bc the data from OWM isnt always to 1dp, like open-meteo was.
+        return Math.round(value * 10.0) / 10.0;
+    }
+
     private String windDirectionMap(Integer windDirection) {
         if (windDirection == null) return "N/A";
         String[] directions = {"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};
         int index = (int) Math.round(((double) windDirection % 360) / 22.5) % 16; //convert the wind direction in degrees to an index for the directions array
         return directions[index];
     }
+
+    private Integer translateOwmCode(int owmId) { //had to make this because I have removed open-meteo from everything bar marine, bc its IP based, and so all of my api requests were being used by others bc im hosting my backend on render.
+        if (owmId == 800) return 0;
+        if (owmId == 801) return 1;
+        if (owmId == 802) return 2;
+        if (owmId == 803 || owmId == 804) return 3;
+        if (owmId >= 700 && owmId < 800) return 45;
+        if (owmId >= 300 && owmId < 400) return 51;
+        if (owmId >= 500 && owmId < 600) return 61;
+        if (owmId >= 200 && owmId < 300) return 95;
+        if (owmId >= 600 && owmId < 700) return 71;
+        return 3;
+    }
+
     private String weatherCodeMap(Integer weatherCode) { //using a map
         if (weatherCode == null) return "N/A";
         Map<Integer, String> weatherCodes = Map.ofEntries(Map.entry(0,"Clear sky"),Map.entry(1,"Mainly clear"),Map.entry(2,"Partly cloudy"),Map.entry(3,"Overcast"),Map.entry(45,"Fog"),Map.entry(48,"Depositing rime fog"),Map.entry(51,"Drizzle: Light intensity"),Map.entry(53,"Drizzle: Moderate intensity"),Map.entry(55,"Drizzle: Dense intensity"),Map.entry(56,"Freezing Drizzle: Light intensity"),Map.entry(57,"Freezing Drizzle: Dense intensity"),Map.entry(61,"Rain: Slight intensity"),Map.entry(63,"Rain: Moderate intensity"),Map.entry(65,"Rain: Heavy intensity"),Map.entry(66,"Freezing Rain: Light intensity"),Map.entry(67,"Freezing Rain: Heavy intensity"),Map.entry(71,"Snow fall: Slight intensity"),Map.entry(73,"Snow fall: Moderate intensity"),Map.entry(75,"Snow fall: Heavy intensity"),Map.entry(77,"Snow grains"),Map.entry(80,"Rain showers: Slight intensity"),Map.entry(81,"Rain showers: Moderate intensity"),Map.entry(82,"Rain showers: Violent intensity"),Map.entry(85,"Snow showers: Slight intensity"),Map.entry(86,"Snow showers: Heavy intensity"),Map.entry(95,"Thunderstorm: Slight or moderate"),Map.entry(96,"Thunderstorm with slight hail"),Map.entry(99,"Thunderstorm with heavy hail"));
@@ -110,7 +133,7 @@ public class BeachController {
                 log.warn("Failed to fetch marine data: {}", e.getMessage());
             }
             try {
-                forecastInfo = restClient.get().uri("https://api.open-meteo.com/v1/forecast?latitude=" + geocodingInfo.results().get(0).latitude() + "&longitude=" + geocodingInfo.results().get(0).longitude() + "&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,weathercode&daily=sunrise,sunset").retrieve().body(ForecastInfo.class); //fetch forecast info based off coords
+                forecastInfo = restClient.get().uri("https://api.openweathermap.org/data/2.5/weather?lat=" + geocodingInfo.results().get(0).latitude() + "&lon=" + geocodingInfo.results().get(0).longitude() + "&units=metric&appid=" + oWMKey).retrieve().body(ForecastInfo.class); //fetch forecast info based off coords
                 forecastInfoSuccess = true;
             }
             catch (Exception e) {
@@ -122,12 +145,12 @@ public class BeachController {
         }
         log.info("marineInfo: {}", marineInfo);
         log.info("forecastInfo: {}", forecastInfo);
-        if (marineInfo != null && marineInfo.hourly() != null && marineInfo.hourly().wave_height().isEmpty() == false && forecastInfo != null && forecastInfo.hourly() != null && forecastInfo.hourly().temperature_2m().isEmpty() == false && forecastInfo.daily() != null && forecastInfo.daily().sunset().isEmpty() == false) { //boring null checks
+        if (marineInfo != null && marineInfo.hourly() != null && marineInfo.hourly().wave_height().isEmpty() == false && forecastInfo != null && forecastInfo.main() != null && forecastInfo.wind() != null && forecastInfo.sys() != null && forecastInfo.weather() != null && forecastInfo.weather().isEmpty() == false) { //boring null checks
             int currentUtcHour = Instant.now().atOffset(ZoneOffset.UTC).getHour();
-            if (safeDouble(marineInfo.hourly().wave_height(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().wave_period(), currentUtcHour) == -1.0 || safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour) == -1.0) { //if any of the values are 0, return the unknown spot.
+            if (safeDouble(marineInfo.hourly().wave_height(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().wave_period(), currentUtcHour) == -1.0 || safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour) == -1.0) { //if any of the values are 0, return the unknown spot.
                 return new BeachInfo(1L, "Unknown Spot", 0.0, 0.0, 0.0, 0.0, "N/A", 0.0, 0.0, "N/A", "No Reasoning Available", "N/A", "N/A", "2026-08-07T00:00:00Z", "06:00", "18:00");
             }
-            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), windDirectionMap(forecastInfo.hourly().wind_direction_10m().get(currentUtcHour)), 0.0, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), weatherCodeMap(forecastInfo.hourly().weathercode().get(currentUtcHour)), reasoningWriter(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour)), goodStuffWriter(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), badStuffWriter(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), safeDouble(forecastInfo.hourly().wind_speed_10m(), currentUtcHour), safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), forecastInfo.hourly().weathercode().get(currentUtcHour))), marineInfo.hourly().time().get(currentUtcHour), forecastInfo.daily().sunrise().get(0), forecastInfo.daily().sunset().get(0));
+            return new BeachInfo(null, displayName, ratingCalculator(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), forecastInfo.wind().speed() * 3.6, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), translateOwmCode(forecastInfo.weather().get(0).id()))), round1dp(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour)), round1dp(safeDouble(marineInfo.hourly().wave_period(), currentUtcHour)), round1dp(forecastInfo.wind().speed() * 3.6), windDirectionMap(forecastInfo.wind().deg()), 0.0, round1dp(safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour)), weatherCodeMap(translateOwmCode(forecastInfo.weather().get(0).id())), reasoningWriter(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), forecastInfo.wind().speed() * 3.6, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), translateOwmCode(forecastInfo.weather().get(0).id())), goodStuffWriter(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), forecastInfo.wind().speed() * 3.6, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), translateOwmCode(forecastInfo.weather().get(0).id()))), badStuffWriter(preRatingCalcuator(safeDouble(marineInfo.hourly().wave_height(), currentUtcHour), safeDouble(marineInfo.hourly().wave_period(), currentUtcHour), forecastInfo.wind().speed() * 3.6, safeDouble(marineInfo.hourly().sea_surface_temperature(), currentUtcHour), translateOwmCode(forecastInfo.weather().get(0).id()))), marineInfo.hourly().time().get(currentUtcHour), Instant.ofEpochSecond(forecastInfo.sys().sunrise()).toString(), Instant.ofEpochSecond(forecastInfo.sys().sunset()).toString());
         }
         return new BeachInfo(1L, "Unknown Spot", 0.0, 0.0, 0.0, 0.0, "N/A", 0.0, 0.0, "N/A", "No Reasoning Available", "N/A", "N/A", "2026-08-07T00:00:00Z", "06:00", "18:00");
     }
