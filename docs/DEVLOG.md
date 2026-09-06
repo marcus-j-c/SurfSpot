@@ -231,3 +231,5 @@ Hotfix is ugly, and now the code is a bit messy but it works.
 Updated footer and about page to reflect the changes.
 
 Updated locationiq to be a costal search.
+
+Final CSS fix, project done.
