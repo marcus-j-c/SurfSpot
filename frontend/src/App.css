@@ -1097,9 +1097,10 @@ body::-webkit-scrollbar {
     text-align: center;
   }
 
-  .beach-stats-item p {
-    font-size: 18px;
-  }
+.beach-stats-item p {
+  font-size: clamp(13px, 3.5vw, 16px);
+  white-space: nowrap;
+}
 
   .why-rating {
     width: 90%;
