@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
+import com.surfspot.backend.model.SurfCache;
 import com.surfspot.backend.service.SurfCacheService;
 
 import tools.jackson.databind.ObjectMapper;
@@ -45,6 +47,19 @@ public class BeachController {
 
     @GetMapping
     public BeachInfo getBeachByName(@RequestParam String name) {
+        String spotId = name.trim().toLowerCase().replaceAll("\\s+", "-");
+        Optional<SurfCache> freshCache = surfCacheService.getFreshCache(spotId);
+
+        if (freshCache.isPresent()) {
+            log.info("Cache HIT for spot: '{}'. Returning cached data.", spotId);
+            try {
+                return objectMapper.readValue(freshCache.get().getCachedData(), BeachInfo.class);
+            } catch (Exception e) {
+                log.error("Failed to parse cached JSON for {}: {}", spotId, e.getMessage());
+            }
+        }
+
+        log.info("Cache MISS/STALE for spot: '{}'. Fetching fresh API data.", spotId);
         /*
          * collect(Collectors.joining(" ")) tells to join with spaces.
          * substring(0,1) grabs first char, as that is 0 up to but not including 1,
@@ -55,7 +70,16 @@ public class BeachController {
         String cleanedName = Arrays.stream(name.split("-"))
                 .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.joining(" "));
         GeocodingResult res = coordsRequest(name, cleanedName);
-        return getBeachData(res.info(), res.displayName()); // Get spot from the apis.
+        BeachInfo freshBeachData = getBeachData(res.info(), res.displayName()); // Get spot from the apis.
+
+        try {
+            String jsonString = objectMapper.writeValueAsString(freshBeachData);
+            surfCacheService.saveOrUpdateCache(spotId, jsonString);
+            log.info("Successfully cached fresh data for spot: '{}'", spotId);
+        } catch (Exception e) {
+            log.error("Failed to convert BeachInfo to JSON for spot {}: {}", spotId, e.getMessage());
+        }
+        return freshBeachData;
     }
 
     private GeocodingResult coordsRequest(String name, String displayName) {
