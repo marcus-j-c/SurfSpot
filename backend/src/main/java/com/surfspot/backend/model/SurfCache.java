@@ -20,6 +20,8 @@ public class SurfCache {
     // spot id cant be null, and has to be unique
     @Column(nullable = false, unique = true)
     private String spotId;
+    private Double latitude;
+    private Double longitude;
     // TEXT overrides 255 char limit, so can store json strings from my apis
     @Column(columnDefinition = "TEXT")
     private String cachedData;
@@ -28,8 +30,10 @@ public class SurfCache {
     public SurfCache() {
     }
 
-    public SurfCache(String spotId, String cachedData, Instant lastUpdated) {
+    public SurfCache(String spotId, Double latitude, Double longitude, String cachedData, Instant lastUpdated) {
         this.spotId = spotId;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.cachedData = cachedData;
         this.lastUpdated = lastUpdated;
     }
@@ -56,5 +60,21 @@ public class SurfCache {
 
     public void setLastUpdated(Instant lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

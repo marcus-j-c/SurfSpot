@@ -18,39 +18,32 @@ public class SurfCacheService {
         this.cacheRepository = cacheRepository;
     }
 
-    public Optional<SurfCache> getFreshCache(String spotId) {
-        Optional<SurfCache> cacheOpt = cacheRepository.findBySpotId(spotId);
-
-        // could i find the SurfCache in my database
-        if (cacheOpt.isPresent()) {
-            SurfCache cache = cacheOpt.get();
-            Instant oneHourAgo = Instant.now().minus(1, ChronoUnit.HOURS);
-
-            // if so, was it last updated in the past hour
-            if (cache.getLastUpdated().isAfter(oneHourAgo)) {
-                return Optional.of(cache);
-            }
-        }
-
-        // if neither of those are true, remturn empty
-        return Optional.empty();
+    public Optional<SurfCache> getCache(String spotId) {
+        return cacheRepository.findBySpotId(spotId);
     }
 
-    public void saveOrUpdateCache(String spotId, String rawData) {
+    // is the cache less than an hour old
+    public boolean isFresh(SurfCache cache) {
+        Instant oneHourAgo = Instant.now().minus(1, ChronoUnit.HOURS);
+        return cache.getLastUpdated().isAfter(oneHourAgo);
+    }
+
+    public void saveOrUpdateCache(String spotId, String rawData, Double latitude, Double longitude) {
         Optional<SurfCache> existingOpt = cacheRepository.findBySpotId(spotId);
 
         SurfCache cache;
-        // if the cache already existed it was just outdated, update the data inside it
+        // if the SurfCache exitst update it
         if (existingOpt.isPresent()) {
             cache = existingOpt.get();
             cache.setCachedData(rawData);
             cache.setLastUpdated(Instant.now());
+            cache.setLatitude(latitude);
+            cache.setLongitude(longitude);
         } else {
-            // otherwise make a new cache
-            cache = new SurfCache(spotId, rawData, Instant.now());
+            // else create the SurfCache for this location
+            cache = new SurfCache(spotId, latitude, longitude, rawData, Instant.now());
         }
 
-        // save the new cache, or over the existing cache with the data
         cacheRepository.save(cache);
     }
 }

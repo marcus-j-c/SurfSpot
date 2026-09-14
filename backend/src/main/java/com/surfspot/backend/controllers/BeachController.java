@@ -34,7 +34,7 @@ import tools.jackson.databind.ObjectMapper;
 public class BeachController {
     private static final Logger log = LoggerFactory.getLogger(BeachController.class);
 
-    private record GeocodingResult(GeocodingInfo info, String displayName) {
+    private record GeocodingResult(GeocodingInfo info, String displayName, String matchedKey) {
     }
 
     private final RestClient restClient = RestClient.create(); // create a RestClient instance
@@ -47,38 +47,58 @@ public class BeachController {
 
     @GetMapping
     public BeachInfo getBeachByName(@RequestParam String name) {
-        String spotId = name.trim().toLowerCase().replaceAll("\\s+", "-");
-        Optional<SurfCache> freshCache = surfCacheService.getFreshCache(spotId);
+        List<String> nameVariations = generateNameVars(name);
 
-        if (freshCache.isPresent()) {
-            log.info("Cache HIT for spot: '{}'. Returning cached data.", spotId);
-            try {
-                return objectMapper.readValue(freshCache.get().getCachedData(), BeachInfo.class);
-            } catch (Exception e) {
-                log.error("Failed to parse cached JSON for {}: {}", spotId, e.getMessage());
+        for (String key : nameVariations) {
+            Optional<SurfCache> cacheOpt = surfCacheService.getCache(key);
+            if (cacheOpt.isPresent()) {
+                SurfCache cache = cacheOpt.get();
+                if (surfCacheService.isFresh(cache) == true) {
+                    log.info("Fresh Cache HIT for key: '{}'", key);
+                    try {
+                        return objectMapper.readValue(cache.getCachedData(), BeachInfo.class);
+                    } catch (Exception e) {
+                        log.error("Failed to parse cached JSON for {}: {}", key, e.getMessage());
+                    }
+                }
+                log.info("Stale Cache HIT for key: '{}'. Fetching marine/weather with stored coords.", key);
+                String cleanedName = Arrays.stream(name.split("-"))
+                        .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
+                        .collect(Collectors.joining(" "));
+                GeocodingInfo.BeachCoords staleHitInfo = new GeocodingInfo.BeachCoords("stale", cache.getLatitude(),
+                        cache.getLongitude());
+                GeocodingResult staleHit = new GeocodingResult(new GeocodingInfo(List.of(staleHitInfo)), cleanedName,
+                        key);
+                return getBeachData(staleHit.info(), staleHit.displayName());
             }
         }
-
-        log.info("Cache MISS/STALE for spot: '{}'. Fetching fresh API data.", spotId);
-        /*
-         * collect(Collectors.joining(" ")) tells to join with spaces.
-         * substring(0,1) grabs first char, as that is 0 up to but not including 1,
-         * then substring(1) grabs the rest of the string starting at index 1.
-         * And map just applies this capitalisation to each word.
-         * This is the same as i did in TS on my frontend.
-         */
         String cleanedName = Arrays.stream(name.split("-"))
-                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.joining(" "));
+                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
+                .collect(Collectors.joining(" "));
+        log.info("Cache MISS for spot: '{}' (variants tried: {}). Fetching API data.", cleanedName,
+                nameVariations);
+        // collect(Collectors.joining(" ")) tells to join with spaces.
+        // substring(0,1) grabs first char, as that is 0 up to but not including 1,
+        // then substring(1) grabs the rest of the string starting at index 1.
+        // And map just applies this capitalisation to each word.
+        // This is the same as i did in TS on my frontend.
         GeocodingResult res = coordsRequest(name, cleanedName);
-        BeachInfo freshBeachData = getBeachData(res.info(), res.displayName()); // Get spot from the apis.
+        if (res.info() == null || res.info().results() == null || res.info().results().isEmpty() == true) {
+            return getBeachData(null, cleanedName);
+        }
+
+        BeachInfo freshBeachData = getBeachData(res.info(), res.displayName());
 
         try {
             String jsonString = objectMapper.writeValueAsString(freshBeachData);
-            surfCacheService.saveOrUpdateCache(spotId, jsonString);
-            log.info("Successfully cached fresh data for spot: '{}'", spotId);
+            String cacheKey = res.matchedKey() != null ? res.matchedKey() : name.toLowerCase();
+            surfCacheService.saveOrUpdateCache(cacheKey, jsonString, res.info().results().get(0).latitude(),
+                    res.info().results().get(0).longitude());
+            log.info("Saved fresh cache entry for: {}", cacheKey);
         } catch (Exception e) {
-            log.error("Failed to convert BeachInfo to JSON for spot {}: {}", spotId, e.getMessage());
+            log.error("Failed to serialise cache payload: {}", e.getMessage());
         }
+
         return freshBeachData;
     }
 
@@ -115,7 +135,7 @@ public class BeachController {
                     // fastest fix after swapping out open meteo
                     Double.parseDouble(firstResult.lat()), Double.parseDouble(firstResult.lon()));
             // return the geocoding info record with the coords in a list
-            return new GeocodingResult(new GeocodingInfo(List.of(coords)), displayName);
+            return new GeocodingResult(new GeocodingInfo(List.of(coords)), displayName, searchTarget.replace(" ", "-"));
         }
         log.info("No locationIq results, falling back to Nominatim for '{}'", cleanedName);
         try { // if the response is empty, try nominatim as my backup, with beach first to
@@ -124,23 +144,21 @@ public class BeachController {
                     .uri("https://nominatim.openstreetmap.org/search?q=" + searchTarget + "&format=json")
                     .header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve()
                     .body(BackupGeocodingInfo[].class);
+            String usedTarget = searchTarget;
             if ((nominatimResponse == null || nominatimResponse.length == 0) && !searchTarget.equals(cleanedName)) {
+                usedTarget = cleanedName;
                 nominatimResponse = restClient.get()
                         .uri("https://nominatim.openstreetmap.org/search?q=" + cleanedName + "&format=json")
                         .header("User-Agent", "SurfSpot/V1 (https://surf-spot-ruddy.vercel.app)").retrieve()
                         .body(BackupGeocodingInfo[].class);
             }
-            if (nominatimResponse != null && nominatimResponse.length > 0) { // check if the response isnt empty.
-                // sort nominatim response by importance from highest to lowest
+            if (nominatimResponse != null && nominatimResponse.length > 0) {
                 Arrays.sort(nominatimResponse, Comparator.comparingDouble(BackupGeocodingInfo::importance).reversed());
-                // temporary pre dropdown box on frontend searchbar
                 BackupGeocodingInfo firstResult = nominatimResponse[0];
                 GeocodingInfo.BeachCoords coords = new GeocodingInfo.BeachCoords(firstResult.name(),
-                        // convert nominatimResponse into geocodinginfo, same was i did with the lociq
-                        // response
                         Double.parseDouble(firstResult.lat()), Double.parseDouble(firstResult.lon()));
-                // return the geocoding info with the coords in a list
-                return new GeocodingResult(new GeocodingInfo(List.of(coords)), displayName);
+                return new GeocodingResult(new GeocodingInfo(List.of(coords)), displayName,
+                        usedTarget.replace(" ", "-"));
             }
         } catch (Exception e) {
             log.warn("Nominatim lookup failed: {}", e.getMessage());
@@ -161,7 +179,7 @@ public class BeachController {
             }
         }
         log.info("No results found for '{}', returning null", cleanedName);
-        return new GeocodingResult(null, displayName); // if all else fails, return null
+        return new GeocodingResult(null, displayName, null); // if all else fails, return null
     }
 
     private double safeDouble(List<Double> list, int currentUtcHour) {
@@ -491,5 +509,34 @@ public class BeachController {
     public BeachController(SurfCacheService surfCacheService, ObjectMapper objectMapper) {
         this.surfCacheService = surfCacheService;
         this.objectMapper = objectMapper;
+    }
+
+    private List<String> generateNameVars(String rawName) {
+        List<String> vars = new ArrayList<>();
+
+        // Normalize accents and convert to lowercase
+        String cleaned = Normalizer.normalize(rawName, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase()
+                .trim()
+                // remove groups of non alphanumeric chars and swap with a -
+                .replaceAll("[^a-z0-9]+", "-")
+                // remove any leading or trailing -
+                .replaceAll("^-|-$", "");
+
+        String primaryKey = cleaned.contains("beach") ? cleaned : cleaned + "-beach";
+        vars.add(primaryKey);
+
+        String[] parts = cleaned.split("-");
+        final List<String> suffixes = List.of("beach", "spot", "point", "break", "reef", "surf");
+
+        while (parts.length > 1 && suffixes.contains(parts[parts.length - 1])) {
+            parts = Arrays.copyOf(parts, parts.length - 1);
+            String strippedKey = String.join("-", parts);
+            if (!vars.contains(strippedKey)) {
+                vars.add(strippedKey);
+            }
+        }
+        return vars;
     }
 }
