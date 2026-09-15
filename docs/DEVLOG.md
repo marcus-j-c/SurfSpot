@@ -261,3 +261,9 @@ Created a surfcache table in the surfspot database, the primary key is id, spot 
 Defined each item in the table as a surfcache, which can be searched by spotid
 
 Created the way the data is cached, if the hit could be found, and the data was less than 1 hr old, return it, otherwise, if the a hit but stale, use the saved coords for that hit, to skip the geocoding request and jump straight to finding the updating the data. If miss, create new entry in table data and coords. Also saves the name that found the location, so when doing the suffix stripping to check for a cache hit, it is obviously much more likely to find one.
+
+## Day 2
+
+Forgot to overwrite stale data, this bug is now fixed.
+
+Added stat tracking per session.
