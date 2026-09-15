@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -44,6 +45,8 @@ public class BeachController {
     private String oWMKey;
     private final SurfCacheService surfCacheService;
     private final ObjectMapper objectMapper;
+    private final AtomicLong cacheHits = new AtomicLong(0);
+    private final AtomicLong cacheMisses = new AtomicLong(0);
 
     @GetMapping
     public BeachInfo getBeachByName(@RequestParam String name) {
@@ -52,6 +55,7 @@ public class BeachController {
         for (String key : nameVariations) {
             Optional<SurfCache> cacheOpt = surfCacheService.getCache(key);
             if (cacheOpt.isPresent()) {
+                cacheHits.incrementAndGet();
                 SurfCache cache = cacheOpt.get();
                 if (surfCacheService.isFresh(cache) == true) {
                     log.info("Fresh Cache HIT for key: '{}'", key);
@@ -69,9 +73,17 @@ public class BeachController {
                         cache.getLongitude());
                 GeocodingResult staleHit = new GeocodingResult(new GeocodingInfo(List.of(staleHitInfo)), cleanedName,
                         key);
-                return getBeachData(staleHit.info(), staleHit.displayName());
+                BeachInfo freshData = getBeachData(staleHit.info(), staleHit.displayName());
+                try {
+                    String jsonString = objectMapper.writeValueAsString(freshData);
+                    surfCacheService.saveOrUpdateCache(key, jsonString, cache.getLatitude(), cache.getLongitude());
+                } catch (Exception e) {
+                    log.error("Failed to update stale cache for {}: {}", key, e.getMessage());
+                }
+                return freshData;
             }
         }
+        cacheMisses.incrementAndGet();
         String cleanedName = Arrays.stream(name.split("-"))
                 .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
                 .collect(Collectors.joining(" "));
@@ -519,8 +531,8 @@ public class BeachController {
                 .replaceAll("\\p{M}", "")
                 .toLowerCase()
                 .trim()
-                // remove groups of non alphanumeric chars and swap with a -
-                .replaceAll("[^a-z0-9]+", "-")
+                // remove groups of non alphanumeric chars or apostrophes and swap with a -
+                .replaceAll("[^a-z0-9']+", "-")
                 // remove any leading or trailing -
                 .replaceAll("^-|-$", "");
 
@@ -538,5 +550,20 @@ public class BeachController {
             }
         }
         return vars;
+    }
+
+    // stats endpoint so I can track cache hits and misses
+    @GetMapping("/stats")
+    public Map<String, Object> getCacheStats() {
+        long hits = cacheHits.get();
+        long misses = cacheMisses.get();
+        long total = hits + misses;
+        double hitRate = total == 0 ? 0.0 : ((double) hits / total) * 100;
+
+        return Map.of(
+                "totalRequests", total,
+                "cacheHits", hits,
+                "cacheMisses", misses,
+                "hitRatePercentage", String.format("%.2f%%", hitRate));
     }
 }
