@@ -267,3 +267,5 @@ Created the way the data is cached, if the hit could be found, and the data was 
 Forgot to overwrite stale data, this bug is now fixed.
 
 Added stat tracking per session.
+
+Containerised my local PostgreSQL database using a docker-compose.yml file, therefore people can run it locally without having PostgreSQL installed.

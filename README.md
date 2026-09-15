@@ -42,7 +42,7 @@ User inputted beach name -> Geocoding -> Coordinates -> Marine data from open-me
 
 1. git clone https://github.com/marcus-j-c/SurfSpot.git
 
-2. cd backend -> $env:LOCATIONIQ_KEY = 'yourkey' -> $env:OWM_API_KEY = 'yourkey' -> $env:DB_URL = 'yourlocallocation' e.g.'jdbc:postgresql://localhost:5432/surfspot_db' -> $env:DB_USERNAME = 'yourdbusername' -> $env:DB_PASSWORD = 'yourdbpassword' -> .\mvnw.cmd spring-boot:run (Use export VAR = 'value' on mac and linux)
+2. cd backend -> rename .env.example to .env and fill in POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD -> rename application-local.properties.example to application-local.properties and fill in your db url/username/password to match .env -> open docker desktop -> docker compose up -d (starts local Postgres on port 5433) -> $env:LOCATIONIQ_KEY = 'yourkey' -> $env:OWM_API_KEY = 'yourkey' -> $env:SPRING_PROFILES_ACTIVE = 'local' -> .\mvnw.cmd spring-boot:run (Use export VAR=value on mac and linux)
 
 3. cd frontend -> npm install -> npm run dev
 
@@ -51,6 +51,8 @@ User inputted beach name -> Geocoding -> Coordinates -> Marine data from open-me
 ## V2 Additions
 
 - SurfSpot now has a caching database so when a new spot is searched, it checks the database, if a hit, and the data is less than 1 hour old, it returns it, if the data is stale, it uses the stored coordinates to skip the Geocoding and just fetch the weather and marine data. If it's a miss, create a new entry in the table, with all the data for the future.
+
+- SurfSpot now has a docker containerised PostgreSQL database, so it can be run without having PostgreSQL installed.
 
 ## Known Limitations (Future Additions In V3 and Beyond)
 

@@ -1,4 +1,4 @@
-spring.datasource.url=jdbc:postgresql://localhost:5432/surfspot
+spring.datasource.url=jdbc:postgresql://localhost:5433/surfspot
 spring.datasource.username=postgres
 spring.datasource.password=localpassword
 
