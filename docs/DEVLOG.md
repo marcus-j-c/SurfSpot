@@ -269,3 +269,9 @@ Forgot to overwrite stale data, this bug is now fixed.
 Added stat tracking per session.
 
 Containerised my local PostgreSQL database using a docker-compose.yml file, therefore people can run it locally without having PostgreSQL installed.
+
+## Day 3
+
+Created unit tests using JUnit and Mockito to test my cache hit and miss mechanics.
+
+Now have made a github workflow, so that every time I push, my unit tests run.

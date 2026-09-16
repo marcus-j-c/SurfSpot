@@ -1,5 +1,7 @@
 # SurfSpot: Real Time Surfing Forecasts for any Spot in the World
 
+[![.github/workflows/ci.yml](https://github.com/marcus-j-c/SurfSpot/actions/workflows/ci.yml/badge.svg)](https://github.com/marcus-j-c/SurfSpot/actions/workflows/ci.yml)
+
 ## Try the Live Demo
 
 https://surf-spot-ruddy.vercel.app/
@@ -27,6 +29,11 @@ Frontend: I built the frontend with React, TypeScript, and I went for a glassmor
 Backend: I built the backend with Java Spring Boot REST endpoints, using Java Records (DTOs), custom string normalisation to handle user inputs, and a PostgreSQL database to cache data. I used a multi-fallback strategy: LocationIQ coastal search first (sorted by importance), falling back to Nominatim coastal search (sorted by importance), and recursively stripping suffixes like "beach" or "spot" if the initial searches fail. New searches are then cached for instant retrieval (within an hour) or to skip geocoding API requests.
 
 Scoring Algorithm & Insights: I built a custom algorithm that converts the raw marine data from open-meteo and weather data from OpenWeatherMap into a single rating out of 10. Then I take that rating, and using a formula I created, I weight the ratings, and connect them (some are dependent on others) to create the final spot rating. I also wrote custom logic that creates reasoning, and understandable insights based off the raw data.
+
+## Testing & CI/CD
+
+- Unit Testing: I wrote unit tests using JUnit and Mockito, to test my cache hit/miss logic.
+- Continuous Integration: Configured a github actions pipeline (`ci.yml`) so my unit tests would run on every push.
 
 ## How It Works
 
