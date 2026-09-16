@@ -18,4 +18,5 @@ jobs:
                   distribution: "temurin"
                   cache: maven
             - name: Run Tests
+              working-directory: bakcend
               run: ./mvnw test -Dtest=SurfCacheServiceTest
