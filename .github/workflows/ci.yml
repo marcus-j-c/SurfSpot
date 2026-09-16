@@ -17,6 +17,10 @@ jobs:
                   java-version: "17"
                   distribution: "temurin"
                   cache: maven
+
+            - name: Allow to execute
+              run: chmod +x backend/mvnw
+
             - name: Run Tests
               working-directory: backend
               run: ./mvnw test -Dtest=SurfCacheServiceTest
