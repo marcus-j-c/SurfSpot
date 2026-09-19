@@ -10,30 +10,45 @@ interface BeachStatsProps {
     weather: string;
 }
 
-export default function BeachStats({ waveHeight, wavePeriod, windSpeed, windDirection,/* tide,*/ waterTemp, weather }: BeachStatsProps) {
+export default function BeachStats({
+    waveHeight,
+    wavePeriod,
+    windSpeed,
+    windDirection,
+    /* tide,*/ waterTemp,
+    weather,
+}: BeachStatsProps) {
     return (
-        <div className = "beach-stats">
-            <div className = "beach-stats-item">
+        <div className="beach-stats">
+            <div className="beach-stats-item">
                 <h2>Wave Height</h2>
                 <p>{waveHeight} m</p>
             </div>
-            <div className = "beach-stats-item">
+            <div className="beach-stats-item">
                 <h2>Wave Period</h2>
                 <p>{wavePeriod} s</p>
             </div>
-            <div className = "beach-stats-item">
+            <div className="beach-stats-item">
                 <h2>Wind Speed & Direction</h2>
-                <p>{windSpeed} m/s, {windDirection}</p>
+                <p>
+                    {windSpeed} km/h, {windDirection}
+                </p>
             </div>
-            <div className = "beach-stats-item">
+            <div className="beach-stats-item">
                 <h2>Tide</h2>
-                {/*<p>{tide} m</p> Tide data not in v1*/ <p style={{ color: "#f97316", whiteSpace: "nowrap" }}>Coming soon!</p>}
+                {
+                    /*<p>{tide} m</p> Tide data not in v1*/ <p
+                        style={{ color: "#f97316", whiteSpace: "nowrap" }}
+                    >
+                        Coming soon!
+                    </p>
+                }
             </div>
-            <div className = "beach-stats-item">
+            <div className="beach-stats-item">
                 <h2>Water Temperature</h2>
                 <p>{waterTemp} °C</p>
             </div>
-            <div className = "beach-stats-item">
+            <div className="beach-stats-item">
                 <h2>Weather Conditions</h2>
                 <p className="beach-stats-weather">{weather}</p>
             </div>
